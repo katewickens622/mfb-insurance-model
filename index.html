@@ -277,9 +277,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="gap-view active">
   <div class="gap-nav">
     <span class="gap-nav-lbl">Demo</span>
-    <button class="g-btn active" onclick="showGap('g1',this)">Gap 1 — Results page card</button>
-    <button class="g-btn" onclick="showGap('g2',this)">Gap 2 — Step 5 Insurance</button>
-    <button class="g-btn" onclick="showGap('g3',this)">Gap 3 — Step 6 Expenses</button>
+    <button class="g-btn active" onclick="showGap('g2',this)">Gap 1 — Step 5 Insurance</button>
+    <button class="g-btn" onclick="showGap('g3',this)">Gap 2 — Step 6 Expenses</button>
   </div>
 
   <!-- Gap 1 -->
@@ -558,6 +557,7 @@ function showGap(id,btn){
   document.getElementById('gp-'+id).classList.add('active');
   btn.classList.add('active');
 }
+showGap('g2', document.querySelector('.g-btn'));
 
 
 function pickTile(el,type){
