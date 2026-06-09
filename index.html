@@ -286,31 +286,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div class="gap-page active" id="gp-g1">
     <div class="gap-card">
       <div class="gap-hdr"><div class="gap-hdr-title">Gap 1 — Results page: no coverage tier or cost breakdown</div><span class="gap-tag">Results · Option 7</span></div>
-      <div class="gap-note-strip"><b>Problem:</b> Insurance cards show "$310/month saved" but not what the user actually pays. Users can't answer "can I afford this?" without clicking through. Proposed: coverage tier badge + "What you'd pay" cost grid on the card.</div>
-      <div class="view-tog">
-        <span class="vt-lbl">View</span>
-        <div class="vt-pill">
-          <button class="vt-opt on" id="g1cur" onclick="setG1('cur')">Current</button>
-          <button class="vt-opt" id="g1prop" onclick="setG1('prop')">Proposal B</button>
-        </div>
-      </div>
+      <div class="gap-note-strip"><b>Problem:</b> Insurance cards currently show "$310/month saved" with no coverage tier and no cost breakdown. Users can't answer "can I afford this?" without clicking through. Below is Proposal B applied — tier badge, "Your monthly cost" framing, and the cost grid visible on the card.</div>
       <div style="padding:12px 16px 4px;">
         <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;"><span style="font-size:15px;">🏥</span><span style="font-size:13px;font-weight:700;color:var(--rust);">Health Care</span></div>
         <div style="font-size:11px;font-weight:700;color:var(--rust);margin-bottom:8px;">$530/month</div>
-        <!-- Medicaid card -->
-        <div class="card" id="g1-card">
+        <div class="card">
           <div class="card-head">
             <div class="card-name">Health First Colorado (Medicaid)</div>
-            <div class="tier t-comp" id="g1-tier" style="display:none;">★ Comprehensive</div>
+            <div class="tier t-comp">★ Comprehensive</div>
             <div class="elig-row" style="margin-top:5px;"><span class="elig-l">Eligible:</span><span class="elig-t">Yourself</span><span class="elig-t">Child, 5</span></div>
           </div>
           <button class="more-btn">More Info</button>
           <hr class="card-div">
           <div class="val-row">
             <div><div class="vl">Application Time:</div><div class="vm">45 min</div></div>
-            <div><div class="vl" id="g1-vl">Estimated Savings:</div><div class="vm" id="g1-vm">$310/month</div><div class="vs" id="g1-vs" style="display:none;">~$310/month saved vs. private insurance</div></div>
+            <div><div class="vl">Your monthly cost:</div><div class="vm green-v">$0/month</div><div class="vs">~$310/month saved vs. private insurance</div></div>
           </div>
-          <div id="g1-costs" style="display:none;background:var(--green-l);border-top:1px solid #86efac;padding:8px 13px;">
+          <div style="background:var(--green-l);border-top:1px solid #86efac;padding:8px 13px;">
             <div style="font-size:10px;font-weight:700;color:var(--green-d);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;">💰 What you'd pay</div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 8px;">
               <div class="mi-ci"><span class="mi-ck">Monthly premium</span><span class="mi-cv-free">$0</span></div>
@@ -567,20 +559,6 @@ function showGap(id,btn){
   btn.classList.add('active');
 }
 
-function setG1(mode){
-  var isP=mode==='prop';
-  document.getElementById('g1cur').className='vt-opt'+(isP?'':' on');
-  document.getElementById('g1prop').className='vt-opt'+(isP?' on':'');
-  var card=document.getElementById('g1-card');
-  card.style.borderColor=isP?'var(--green)':'var(--green)';
-  document.getElementById('g1-tier').style.display=isP?'inline-flex':'none';
-  document.getElementById('g1-vl').textContent=isP?'Your monthly cost:':'Estimated Savings:';
-  var vm=document.getElementById('g1-vm');
-  vm.textContent=isP?'$0/month':'$310/month';
-  vm.className='vm'+(isP?' green-v':'');
-  document.getElementById('g1-vs').style.display=isP?'block':'none';
-  document.getElementById('g1-costs').style.display=isP?'block':'none';
-}
 
 function pickTile(el,type){
   document.querySelectorAll('#gp-g2 .tile-grid .ins-tile').forEach(t=>t.classList.remove('sel'));
