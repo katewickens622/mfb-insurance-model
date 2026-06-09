@@ -3,72 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MFB Insurance Program Model — MFB-1024</title>
+<title>MFB-1024 — Insurance Benefit Value Model</title>
 <style>
-:root{color-scheme:light;
-  --navy:#1a2744;--orange:#b85c2c;--teal:#037a93;--mint:#4ecdc4;
-  --bg:#f0f0f5;--white:#fff;--border:#e0e0e0;--text:#1a1a1a;--muted:#666;
-  --green:#059669;--green-l:#d1fae5;--green-d:#065f46;
-  --yellow:#d97706;--yellow-l:#fef3c7;
-  --purple:#7c3aed;--purple-l:#ede9fe;
-  --blue:#1d4ed8;--blue-l:#dbeafe;
-  --gray:#9ca3af;--gray-l:#f3f4f6;
+:root{
+  --navy:#2C3C6C; --rust:#C4622D; --teal:#037a93;
+  --bg:#f0f0f5; --white:#fff; --border:#e0e0e0;
+  --text:#1a1a1a; --muted:#666;
+  --green:#059669; --green-l:#d1fae5; --green-d:#065f46;
+  --yellow:#d97706; --yellow-l:#fef3c7;
+  --purple:#7c3aed; --purple-l:#ede9fe;
+  --blue:#1d4ed8; --blue-l:#dbeafe;
+  --gray:#9ca3af; --gray-l:#f3f4f6;
+  color-scheme: light;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);font-size:13px;}
 
-/* ── Meta bar ── */
-.meta-bar{background:#0d1c35;padding:6px 14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;}
-.meta-title{color:rgba(255,255,255,.9);font-size:12px;font-weight:700;}
-.meta-info{color:rgba(255,255,255,.45);font-size:10px;}
-.meta-updated{color:rgba(255,255,255,.5);font-size:10px;font-style:italic;}
+/* ── Top chrome ── */
+.top-chrome{background:var(--navy);position:sticky;top:0;z-index:100;}
+.meta-row{padding:5px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08);}
+.meta-title{color:rgba(255,255,255,.9);font-size:11px;font-weight:700;}
+.meta-updated{color:rgba(255,255,255,.4);font-size:10px;font-style:italic;}
+.nav-row{padding:7px 14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.nav-lbl{color:rgba(255,255,255,.4);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;white-space:nowrap;margin-right:2px;}
+.s-btn{padding:4px 11px;border-radius:13px;border:1.5px solid rgba(255,255,255,.18);background:transparent;color:rgba(255,255,255,.55);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;}
+.s-btn:hover{border-color:rgba(255,255,255,.45);color:#fff;}
+.s-btn.active{background:var(--rust);border-color:var(--rust);color:#fff;}
+.divider-dot{color:rgba(255,255,255,.2);font-size:14px;margin:0 2px;}
+.v-btn{padding:4px 13px;border-radius:13px;border:1.5px solid rgba(255,255,255,.18);background:transparent;color:rgba(255,255,255,.55);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;}
+.v-btn:hover{border-color:rgba(255,255,255,.45);color:#fff;}
+.v-btn.active{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.4);color:#fff;}
 
-/* ── Chrome ── */
-.chrome{background:var(--navy);}
-.state-row{padding:7px 14px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.1);}
-.row-lbl{color:rgba(255,255,255,.45);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;white-space:nowrap;}
-.s-btn{padding:4px 11px;border-radius:13px;border:1.5px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.6);font-size:11px;font-weight:600;cursor:pointer;}
-.s-btn:hover{border-color:rgba(255,255,255,.5);color:#fff;}
-.s-btn.active{background:var(--orange);border-color:var(--orange);color:#fff;}
-.prop-row{padding:6px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-.p-btn{padding:4px 14px;border-radius:13px;border:1.5px solid rgba(255,255,255,.25);background:transparent;color:rgba(255,255,255,.65);font-size:11px;font-weight:700;cursor:pointer;}
-.p-btn:hover{border-color:rgba(255,255,255,.5);color:#fff;}
-.p-btn.active{background:var(--orange);border-color:var(--orange);color:#fff;}
-.p-hint{font-size:10px;color:rgba(255,255,255,.35);}
-
-/* ── MFB shell ── */
-.mfb-hdr{background:var(--navy);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;}
+/* ── Screener chrome ── */
+.screen{max-width:800px;margin:20px auto;}
+.mfb-hdr{background:var(--navy);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;border-radius:6px 6px 0 0;}
 .logo{display:flex;align-items:center;gap:8px;}
-.logo-box{width:34px;height:34px;border-radius:8px;background:var(--orange);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:700;}
-.logo-name{color:#fff;font-size:17px;font-weight:300;line-height:1.15;}
+.logo-box{width:34px;height:34px;border-radius:8px;background:var(--rust);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:700;}
+.logo-name{color:#fff;font-size:17px;font-weight:300;line-height:1.1;}
 .logo-name b{font-weight:700;}
 .logo-state{color:rgba(255,255,255,.55);font-size:9px;letter-spacing:.1em;}
-.strip{background:#fff;padding:7px 16px;display:flex;justify-content:space-between;box-shadow:0 1px 3px rgba(0,0,0,.08);}
-.pill{background:var(--orange);color:#fff;border:none;border-radius:15px;padding:5px 13px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;cursor:pointer;}
-.res-hdr{background:var(--bg);padding:13px 16px;display:flex;align-items:center;gap:14px;}
+.strip{background:#fff;padding:7px 18px;display:flex;justify-content:space-between;box-shadow:0 1px 3px rgba(0,0,0,.06);}
+.pill{background:var(--rust);color:#fff;border:none;border-radius:14px;padding:5px 13px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;cursor:pointer;}
+.results-hdr{background:var(--bg);padding:14px 18px;display:flex;align-items:center;gap:16px;}
 .count-box{background:var(--navy);color:#fff;border-radius:5px;padding:11px 14px;text-align:center;min-width:82px;}
 .count-n{font-size:28px;font-weight:700;line-height:1;}
 .count-l{font-size:10px;opacity:.8;margin-top:2px;}
 .stat-l{font-size:10px;color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:2px;}
 .stat-v{font-size:18px;font-weight:700;}
-.tabs{background:var(--teal);padding:6px 14px 0;display:flex;}
+.tabs{background:var(--teal);padding:5px 14px 0;display:flex;}
 .tab{padding:5px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;border-radius:7px 7px 0 0;background:#cde8ed;color:var(--teal);border:2px solid var(--teal);border-bottom:none;margin-right:3px;}
 .tab.active{background:#fff;}
-.note{margin:8px 16px 0;padding:7px 10px;font-size:11px;line-height:1.5;border-radius:0 4px 4px 0;}
-.note-a{border-left:3px solid var(--orange);background:#fff8f5;}
-.note-b{border-left:3px solid var(--blue);background:var(--blue-l);color:var(--blue);}
+.state-note{margin:8px 18px 0;padding:7px 10px;font-size:11px;line-height:1.5;border-left:3px solid var(--rust);background:#fff8f5;border-radius:0 4px 4px 0;}
+.state-note b{color:var(--rust);}
 
-/* ── Programs ── */
-.programs{padding:10px 16px;}
-.cat-hd{display:flex;align-items:center;gap:6px;margin:12px 0 3px;}
+/* ── Program list ── */
+.programs{padding:10px 18px 20px;}
+.cat-hd{display:flex;align-items:center;gap:6px;margin:14px 0 3px;}
 .cat-icon{font-size:16px;}
-.cat-name{font-size:14px;font-weight:700;color:var(--orange);}
-.cat-total{font-size:12px;font-weight:700;color:var(--orange);margin-bottom:7px;}
+.cat-name{font-size:14px;font-weight:700;color:var(--rust);}
+.cat-total{font-size:12px;font-weight:700;color:var(--rust);margin-bottom:8px;}
 
-/* ── Card ── */
+/* ── Program card ── */
 .card{border:2px solid var(--green);background:#fff;margin-bottom:9px;position:relative;border-radius:2px;}
-.card-head{padding:11px 105px 10px 13px;min-height:58px;}
-.card-name{font-size:14px;font-weight:700;line-height:1.3;}
+.card-head{padding:11px 105px 10px 13px;min-height:56px;}
+.card-name{font-size:14px;font-weight:700;color:var(--text);line-height:1.3;}
 .tier{display:inline-flex;align-items:center;gap:3px;border-radius:9px;font-size:10px;font-weight:700;padding:2px 8px;margin:5px 0 0;}
 .t-comp{background:var(--green-l);color:var(--green-d);}
 .t-std{background:var(--blue-l);color:var(--blue);}
@@ -79,109 +77,181 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .elig-l{font-size:10px;color:var(--muted);}
 .elig-t{font-size:10px;font-weight:500;color:var(--teal);background:#f0f0f0;border-radius:9px;padding:1px 7px;}
 .more-btn{position:absolute;right:11px;top:14px;background:var(--navy);color:#fff;border:none;border-radius:13px;padding:6px 12px;font-size:11px;font-weight:600;cursor:pointer;transition:background .15s;}
-.more-btn:hover{background:var(--orange);}
+.more-btn:hover{background:var(--rust);}
 .card-div{border:none;border-top:1px solid var(--green);margin:0 7px;}
-.val-row{display:grid;grid-template-columns:1fr 1fr;padding:9px 13px;gap:8px;}
-.vl{font-size:11px;color:var(--muted);margin-bottom:3px;}
+.val-row{display:grid;grid-template-columns:1fr 1fr;padding:8px 13px;gap:8px;}
+.vl{font-size:11px;color:var(--muted);margin-bottom:2px;}
 .vm{font-size:14px;font-weight:700;}
-.vs{font-size:10px;color:var(--muted);margin-top:2px;line-height:1.4;}
-.green{color:var(--green);}
-.yellow{color:var(--yellow);}
-.gray{color:var(--gray);}
-
-/* ── Proposal A: inline cost grid ── */
-.cost-section{background:var(--green-l);border-top:1px solid #86efac;padding:9px 13px;}
-.cost-title{font-size:10px;font-weight:700;color:var(--green-d);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;}
-.cost-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px 10px;}
-.ci{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(5,150,105,.15);font-size:11px;}
-.ck{color:var(--muted);}
-.cv{font-weight:700;}
-.c-free{color:var(--green);}
-.c-low{color:var(--teal);}
-.c-mid{color:var(--yellow);}
-
-/* ── Flags ── */
+.vs{font-size:10px;color:var(--muted);margin-top:1px;line-height:1.3;}
+.green-v{color:var(--green);}
+.yellow-v{color:var(--yellow);}
+.gray-v{color:var(--gray);}
 .fl{position:absolute;font-size:9px;font-weight:700;padding:2px 7px;border-radius:0 0 6px 0;}
-.fl-done{top:0;left:0;background:#00b213;color:#fff;}
+.fl-live{top:0;left:0;background:#00b213;color:#fff;}
 .fl-disc{top:0;left:0;background:var(--blue);color:#fff;}
 .fl-pe{top:0;right:0;background:var(--green);color:#fff;border-radius:0 0 0 6px;}
 
-/* ── More Info modal (real MFB design) ── */
+/* ── More Info modal (real MFB style) ── */
 .modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-start;justify-content:center;padding-top:40px;}
 .modal-wrap.open{display:flex;}
 .modal{background:var(--bg);width:92%;max-width:540px;max-height:85vh;border-radius:6px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.3);}
-.mi-strip{background:#fff;padding:7px 16px;display:flex;justify-content:space-between;flex-shrink:0;box-shadow:0 1px 3px rgba(0,0,0,.08);}
-.mi-back{background:var(--orange);color:#fff;border:none;border-radius:14px;padding:5px 12px;font-size:10px;font-weight:700;text-transform:uppercase;cursor:pointer;}
-.mi-head-area{background:#fff;padding:20px 24px 16px;display:flex;align-items:center;gap:16px;flex-shrink:0;}
-.mi-icon-box{width:56px;height:56px;display:flex;align-items:center;justify-content:center;font-size:30px;flex-shrink:0;}
-.mi-cat{font-size:13px;color:var(--orange);margin-bottom:4px;}
-.mi-divider{border:none;border-bottom:1px solid var(--orange);margin:2px 0 6px;}
-.mi-prog-name{font-size:20px;font-weight:700;color:var(--navy);line-height:1.2;}
-.mi-est-banner{background:var(--orange);color:#fff;padding:12px 24px;flex-shrink:0;}
-.mi-est-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.3);}
+.mi-strip{background:#fff;padding:7px 16px;display:flex;justify-content:space-between;flex-shrink:0;}
+.mi-back{background:var(--rust);color:#fff;border:none;border-radius:13px;padding:5px 12px;font-size:10px;font-weight:700;text-transform:uppercase;cursor:pointer;}
+.mi-head{background:#fff;padding:18px 22px 14px;display:flex;align-items:center;gap:14px;flex-shrink:0;}
+.mi-icon{width:52px;height:52px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;}
+.mi-cat{font-size:12px;color:var(--rust);margin-bottom:3px;}
+.mi-div{border:none;border-bottom:1px solid var(--rust);margin:2px 0 5px;}
+.mi-name{font-size:19px;font-weight:700;color:var(--navy);line-height:1.2;}
+.mi-est{background:var(--rust);color:#fff;padding:11px 22px;flex-shrink:0;}
+.mi-est-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.25);}
 .mi-est-row:last-child{border-bottom:none;}
-.mi-est-lbl{font-size:13px;font-weight:700;}
-.mi-est-val{font-size:14px;font-weight:400;}
-.mi-apply-area{background:#fff;padding:14px 24px;display:flex;justify-content:center;flex-shrink:0;border-bottom:1px solid var(--border);}
-.mi-apply-btn{background:var(--teal);color:#fff;border:none;border-radius:20px;padding:10px 28px;font-size:13px;font-weight:700;cursor:pointer;}
-.mi-body{overflow-y:auto;background:#fff;}
-.mi-cost-section{margin:16px 24px;border:2px solid var(--green);border-radius:4px;overflow:hidden;}
-.mi-cost-title{background:var(--green);color:#fff;font-size:11px;font-weight:700;padding:8px 14px;text-transform:uppercase;letter-spacing:.05em;}
-.mi-cost-grid{padding:10px 14px;display:grid;grid-template-columns:1fr 1fr;gap:0;}
-.mi-ci{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--green-l);font-size:12px;}
-.mi-ci:nth-child(odd){padding-right:12px;border-right:1px solid var(--green-l);}
-.mi-ci:nth-child(even){padding-left:12px;}
+.mi-est-lbl{font-size:12px;font-weight:700;}
+.mi-est-val{font-size:13px;}
+.mi-apply{background:#fff;padding:12px 22px;display:flex;justify-content:center;flex-shrink:0;border-bottom:1px solid var(--border);}
+.mi-apply-btn{background:var(--teal);color:#fff;border:none;border-radius:18px;padding:9px 26px;font-size:12px;font-weight:700;cursor:pointer;}
+.mi-body{overflow-y:auto;}
+
+.mi-cost{margin:14px 22px;border:2px solid var(--green);border-radius:4px;overflow:hidden;}
+.mi-cost-title{background:var(--green);color:#fff;font-size:10px;font-weight:700;padding:7px 12px;text-transform:uppercase;letter-spacing:.05em;}
+.mi-cost-grid{padding:8px 12px;display:grid;grid-template-columns:1fr 1fr;}
+.mi-ci{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--green-l);font-size:11px;}
+.mi-ci:nth-child(odd){padding-right:10px;border-right:1px solid var(--green-l);}
+.mi-ci:nth-child(even){padding-left:10px;}
 .mi-ci:nth-last-child(-n+2){border-bottom:none;}
 .mi-ck{color:var(--muted);}
-.mi-cv{font-weight:700;}
-.mi-covers{padding:10px 14px;background:var(--gray-l);border-top:1px solid var(--border);}
-.mi-covers-title{font-size:11px;font-weight:700;color:var(--navy);margin-bottom:7px;}
-.mi-cov-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
-.mi-cov-item{display:flex;align-items:center;gap:4px;font-size:11px;}
-.mi-section{border:1px solid var(--teal);margin:0 24px 14px;border-radius:2px;}
-.mi-section-title{color:var(--orange);font-size:15px;font-weight:700;text-align:center;padding:10px 16px 8px;}
-.mi-nav-name{font-size:13px;font-weight:700;color:var(--navy);padding:0 16px 4px;}
-.mi-nav-desc{font-size:12px;color:var(--muted);padding:0 16px 10px;line-height:1.5;}
-.mi-docs-section{border:1px solid var(--teal);margin:0 24px 16px;border-radius:2px;}
-.mi-docs-title{color:var(--orange);font-size:14px;font-weight:700;text-align:center;padding:10px 16px 6px;}
-.mi-docs-list{padding:0 16px 12px;list-style:disc;margin-left:16px;}
-.mi-docs-list li{font-size:12px;color:var(--text);padding:3px 0;line-height:1.4;}
-.mi-desc{padding:0 24px 20px;font-size:13px;line-height:1.7;color:var(--text);}
+.mi-cv-free{font-weight:700;color:var(--green);}
+.mi-cv-low{font-weight:700;color:var(--teal);}
+.mi-cv-mid{font-weight:700;color:var(--yellow);}
+
+.mi-covers{padding:8px 12px;background:var(--gray-l);border-top:1px solid var(--border);}
+.mi-cov-title{font-size:11px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.mi-cov-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;}
+.mi-cov-item{font-size:11px;display:flex;align-items:center;gap:4px;}
+
+.mi-section{border:1px solid var(--teal);margin:0 22px 12px;border-radius:2px;}
+.mi-sec-title{color:var(--rust);font-size:14px;font-weight:700;text-align:center;padding:9px 14px 7px;}
+.mi-nav-name{font-size:12px;font-weight:700;color:var(--navy);padding:0 14px 3px;}
+.mi-nav-desc{font-size:11px;color:var(--muted);padding:0 14px 10px;line-height:1.5;}
+.mi-docs{border:1px solid var(--teal);margin:0 22px 14px;border-radius:2px;}
+.mi-docs-title{color:var(--rust);font-size:13px;font-weight:700;text-align:center;padding:8px 14px 5px;}
+.mi-docs-list{padding:0 14px 10px;list-style:disc;margin-left:16px;}
+.mi-docs-list li{font-size:11px;color:var(--text);padding:2px 0;line-height:1.4;}
+.mi-desc{padding:0 22px 18px;font-size:12px;line-height:1.7;color:var(--text);}
+
+/* ── Gap demos ── */
+.gap-view{display:none;max-width:800px;margin:20px auto;}
+.gap-view.active{display:block;}
+.gap-nav{background:#fff;border-radius:6px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:8px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.gap-nav-lbl{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-right:4px;}
+.g-btn{padding:5px 14px;border-radius:13px;border:1.5px solid var(--border);background:#fff;color:var(--muted);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;}
+.g-btn:hover{border-color:var(--rust);color:var(--rust);}
+.g-btn.active{background:var(--rust);border-color:var(--rust);color:#fff;}
+
+.gap-page{display:none;}
+.gap-page.active{display:block;}
+.gap-card{background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.gap-hdr{background:var(--navy);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;}
+.gap-tag{background:var(--rust);color:#fff;font-size:10px;font-weight:700;padding:2px 9px;border-radius:10px;}
+.gap-hdr-title{color:#fff;font-size:13px;font-weight:700;}
+.gap-note-strip{padding:8px 16px;background:#fff8f5;border-bottom:1px solid #fde8d8;font-size:11px;color:var(--text);line-height:1.5;}
+.gap-note-strip b{color:var(--rust);}
+
+/* Progress bar for gap demos */
+.prog-area{background:#fff;padding:8px 18px;border-bottom:1px solid #eee;}
+.prog-track{height:5px;background:#e0e0e0;border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--rust);border-radius:3px;}
+.prog-lbl{font-size:11px;font-weight:700;color:var(--rust);margin-top:4px;}
+
+/* Step body for gap demos */
+.s-body{padding:18px 20px;}
+.s-head{font-size:15px;font-style:italic;font-weight:700;color:var(--rust);margin-bottom:6px;}
+.s-div{height:2px;background:var(--rust);opacity:.25;margin-bottom:14px;}
+.q-lbl{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.q-hint{font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.5;}
+
+/* Tile grid */
+.tile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:12px;}
+.ins-tile{border:1px solid var(--border);border-radius:5px;padding:9px 7px;text-align:center;cursor:pointer;transition:all .15s;background:#fff;}
+.ins-tile:hover{border-color:var(--navy);}
+.ins-tile.sel{background:var(--navy);color:#fff;border-color:var(--navy);}
+.tile-ico{font-size:20px;margin-bottom:4px;display:block;}
+.tile-lbl{font-size:11px;font-weight:500;line-height:1.3;}
+
+/* Proposed wrap */
+.prop-wrap{border:2px dashed var(--rust);border-radius:7px;padding:14px;background:#fff8f5;margin-top:14px;position:relative;}
+.prop-badge{position:absolute;top:-10px;left:12px;background:var(--rust);color:#fff;font-size:10px;font-weight:700;padding:2px 9px;border-radius:10px;text-transform:uppercase;letter-spacing:.05em;}
+.f-label{font-size:11px;font-weight:600;color:var(--muted);margin-top:10px;margin-bottom:3px;}
+.f-input{width:100%;border:1px solid var(--border);border-radius:4px;padding:8px 11px;font-size:13px;color:var(--navy);background:#fff;outline:none;}
+.f-input:focus{border-color:var(--navy);}
+.dollar-w{position:relative;}
+.dollar-s{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:12px;}
+.dollar-i{padding-left:24px;}
+.tog-row{display:flex;margin-top:5px;}
+.tog-opt{border:1px solid var(--navy);padding:7px 18px;font-size:12px;color:var(--navy);background:#fff;cursor:pointer;}
+.tog-opt:first-child{border-radius:4px 0 0 4px;}
+.tog-opt:last-child{border-radius:0 4px 4px 0;border-left:none;}
+.tog-opt.on{background:var(--navy);color:#fff;}
+.savings-preview{margin-top:10px;padding:9px;background:var(--green-l);border-radius:5px;font-size:11px;color:var(--green-d);display:none;line-height:1.5;}
+
+/* Expense rows */
+.exp-sec-hdr{font-size:13px;font-weight:700;color:var(--navy);padding:7px 0 5px;border-bottom:2px solid var(--rust);margin-bottom:8px;}
+.col-hdrs{display:flex;justify-content:flex-end;gap:76px;margin-bottom:5px;}
+.c-hdr{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+.exp-row{display:flex;align-items:center;gap:8px;padding:9px 11px;background:#fff;border:1px solid #e5e5e5;border-radius:4px;margin-bottom:5px;}
+.exp-row.dim{opacity:.35;}
+.exp-lbl{flex:1;font-size:12px;color:var(--navy);}
+.exp-amt{width:90px;border:1px solid var(--border);border-radius:4px;padding:6px 7px 6px 20px;font-size:12px;color:var(--navy);background:#fff;}
+.exp-freq{display:flex;}
+.exp-freq button{border:1px solid var(--border);padding:5px 9px;font-size:11px;color:var(--navy);background:#fff;cursor:pointer;}
+.exp-freq button:first-child{border-radius:4px 0 0 4px;}
+.exp-freq button:last-child{border-radius:0 4px 4px 0;border-left:none;}
+.exp-freq button.on{background:var(--navy);color:#fff;border-color:var(--navy);}
+
+.nav-row-b{display:flex;justify-content:space-between;padding:14px 20px 18px;border-top:1px solid #eee;margin-top:4px;}
+.n-back{background:none;border:none;color:var(--navy);font-size:12px;font-weight:600;cursor:pointer;}
+.n-cont{background:var(--rust);color:#fff;border:none;border-radius:18px;padding:9px 26px;font-size:12px;font-weight:700;cursor:pointer;}
+
+.rec-bar{background:var(--gray-l);border-top:1px solid var(--border);padding:12px 18px;font-size:11px;color:var(--text);line-height:1.6;}
+.rec-bar b{color:var(--rust);}
+.rec-bar code{background:#e0e0e0;padding:1px 4px;border-radius:3px;font-size:10px;}
+
+/* Toggle for gap1 before/after */
+.view-tog{background:#fff;border-bottom:1px solid #eee;padding:7px 18px;display:flex;align-items:center;gap:8px;}
+.vt-lbl{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;}
+.vt-pill{display:flex;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;}
+.vt-opt{padding:4px 13px;font-size:11px;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--muted);}
+.vt-opt.on{background:var(--rust);color:#fff;}
 </style>
 </head>
 <body>
 
-<!-- Meta bar -->
-<div class="meta-bar">
-  <div class="meta-title">MFB Insurance Program Model — MFB-1024</div>
-  <div class="meta-info">CO · MA · IL · NC · TX · WA · KS &nbsp;|&nbsp; Proposals A &amp; B</div>
-  <div class="meta-updated">Last updated: June 8, 2026 &nbsp;·&nbsp; Sources: benefits-api codebase, Linear, live screener &nbsp;·&nbsp; ✓ Push test</div>
-</div>
-
-<!-- State + Proposal chrome -->
-<div class="chrome">
-  <div class="state-row">
-    <span class="row-lbl">State</span>
-    <div style="display:flex;gap:4px;flex-wrap:wrap;">
-      <button class="s-btn active" onclick="go('co',this)">🏔 Colorado</button>
-      <button class="s-btn" onclick="go('ma',this)">🦞 Massachusetts</button>
-      <button class="s-btn" onclick="go('il',this)">🌇 Illinois</button>
-      <button class="s-btn" onclick="go('nc',this)">🌲 N. Carolina</button>
-      <button class="s-btn" onclick="go('tx',this)">⭐ Texas</button>
-      <button class="s-btn" onclick="go('wa',this)">🍎 Washington</button>
-      <button class="s-btn" onclick="go('ks',this)">🌻 Kansas</button>
-    </div>
+<!-- ── Top chrome ── -->
+<div class="top-chrome">
+  <div class="meta-row">
+    <div class="meta-title">MFB Insurance Program Model — MFB-1024</div>
+    <div class="meta-updated">Updated June 8, 2026 · benefits-api · Linear · Live screener</div>
   </div>
-  <div class="prop-row">
-    <span class="row-lbl">Proposal</span>
-    <button class="p-btn active" id="btn-a" onclick="setProp('a')">A — Cost breakdown on results card</button>
-    <button class="p-btn" id="btn-b" onclick="setProp('b')">B — Cost breakdown on More Info page</button>
-    <span class="p-hint">In Proposal B: click any More Info button to see the detail page</span>
+  <div class="nav-row">
+    <span class="nav-lbl">State</span>
+    <button class="s-btn active" onclick="goState('co',this)">🏔 CO</button>
+    <button class="s-btn" onclick="goState('ma',this)">🦞 MA</button>
+    <button class="s-btn" onclick="goState('il',this)">🌇 IL</button>
+    <button class="s-btn" onclick="goState('nc',this)">🌲 NC</button>
+    <button class="s-btn" onclick="goState('tx',this)">⭐ TX</button>
+    <button class="s-btn" onclick="goState('wa',this)">🍎 WA</button>
+    <button class="s-btn" onclick="goState('ks',this)">🌻 KS</button>
+    <span class="divider-dot">·</span>
+    <span class="nav-lbl">View</span>
+    <button class="v-btn active" id="vbtn-results" onclick="goView('results')">Results page</button>
+    <button class="v-btn" id="vbtn-gaps" onclick="goView('gaps')">Screener gaps</button>
   </div>
 </div>
 
-<!-- Screener -->
-<div style="height:calc(100vh - 108px);overflow-y:auto;position:relative;" id="wrap">
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- RESULTS VIEW                                          -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="view-results">
+<div class="screen">
   <div class="mfb-hdr">
     <div class="logo"><div class="logo-box">✓</div><div><div class="logo-name">myfriend<b>ben</b></div><div class="logo-state" id="st-lbl">COLORADO</div></div></div>
     <div style="color:rgba(255,255,255,.65);font-size:11px;">🌐 ENGLISH ▾</div>
@@ -190,363 +260,345 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <button class="pill">‹ BACK TO SCREENER</button>
     <button class="pill">SAVE MY RESULTS 🖫</button>
   </div>
-  <div class="res-hdr">
+  <div class="results-hdr">
     <div class="count-box"><div class="count-n" id="cnt">—</div><div class="count-l">Programs Found</div></div>
-    <div><div class="stat-l">Estimated Monthly Savings</div><div class="stat-v" id="mo-val">—</div><div class="stat-l" style="margin-top:3px;">Annual Tax Credit</div><div class="stat-v" id="yr-val">—</div></div>
+    <div><div class="stat-l">Estimated Monthly Savings</div><div class="stat-v" id="mo-v">—</div><div class="stat-l" style="margin-top:3px;">Annual Tax Credit</div><div class="stat-v" id="yr-v">—</div></div>
   </div>
   <div class="tabs"><div class="tab active" id="tab-lbl">LONG-TERM BENEFITS</div><div class="tab">ADDITIONAL RESOURCES (0)</div></div>
-  <div class="note note-a" id="note-el" style="margin-bottom:4px;"></div>
+  <div class="state-note" id="state-note"></div>
   <div class="programs" id="progs"></div>
+</div>
+</div>
 
-  <!-- More Info modal -->
-  <div class="modal-wrap" id="modal" onclick="if(event.target===this)closeModal()">
-    <div class="modal">
-      <div class="mi-strip">
-        <button class="mi-back" onclick="closeModal()">‹ BACK TO RESULTS</button>
-        <button class="pill">SAVE MY RESULTS 🖫</button>
-      </div>
-      <div class="mi-head-area">
-        <div class="mi-icon-box" id="mi-icon">🏥</div>
-        <div>
-          <div class="mi-cat" id="mi-cat">Health Care</div>
-          <div class="mi-divider"></div>
-          <div class="mi-prog-name" id="mi-name">Program Name</div>
-          <div class="tier" id="mi-tier" style="margin-top:8px;"></div>
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- GAPS VIEW                                             -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="view-gaps" style="display:none;">
+<div class="gap-view active">
+  <div class="gap-nav">
+    <span class="gap-nav-lbl">Demo</span>
+    <button class="g-btn active" onclick="showGap('g1',this)">Gap 1 — Results page card</button>
+    <button class="g-btn" onclick="showGap('g2',this)">Gap 2 — Step 5 Insurance</button>
+    <button class="g-btn" onclick="showGap('g3',this)">Gap 3 — Step 6 Expenses</button>
+  </div>
+
+  <!-- Gap 1 -->
+  <div class="gap-page active" id="gp-g1">
+    <div class="gap-card">
+      <div class="gap-hdr"><div class="gap-hdr-title">Gap 1 — Results page: no coverage tier or cost breakdown</div><span class="gap-tag">Results · Option 7</span></div>
+      <div class="gap-note-strip"><b>Problem:</b> Insurance cards show "$310/month saved" but not what the user actually pays. Users can't answer "can I afford this?" without clicking through. Proposed: coverage tier badge + "What you'd pay" cost grid on the card.</div>
+      <div class="view-tog">
+        <span class="vt-lbl">View</span>
+        <div class="vt-pill">
+          <button class="vt-opt on" id="g1cur" onclick="setG1('cur')">Current</button>
+          <button class="vt-opt" id="g1prop" onclick="setG1('prop')">Proposal B</button>
         </div>
       </div>
-      <div class="mi-est-banner">
-        <div class="mi-est-row"><span class="mi-est-lbl">Estimated Annual Value</span><span class="mi-est-val" id="mi-annual">—</span></div>
-        <div class="mi-est-row"><span class="mi-est-lbl">Estimated Time to Apply</span><span class="mi-est-val" id="mi-time">—</span></div>
+      <div style="padding:12px 16px 4px;">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;"><span style="font-size:15px;">🏥</span><span style="font-size:13px;font-weight:700;color:var(--rust);">Health Care</span></div>
+        <div style="font-size:11px;font-weight:700;color:var(--rust);margin-bottom:8px;">$530/month</div>
+        <!-- Medicaid card -->
+        <div class="card" id="g1-card">
+          <div class="card-head">
+            <div class="card-name">Health First Colorado (Medicaid)</div>
+            <div class="tier t-comp" id="g1-tier" style="display:none;">★ Comprehensive</div>
+            <div class="elig-row" style="margin-top:5px;"><span class="elig-l">Eligible:</span><span class="elig-t">Yourself</span><span class="elig-t">Child, 5</span></div>
+          </div>
+          <button class="more-btn">More Info</button>
+          <hr class="card-div">
+          <div class="val-row">
+            <div><div class="vl">Application Time:</div><div class="vm">45 min</div></div>
+            <div><div class="vl" id="g1-vl">Estimated Savings:</div><div class="vm" id="g1-vm">$310/month</div><div class="vs" id="g1-vs" style="display:none;">~$310/month saved vs. private insurance</div></div>
+          </div>
+          <div id="g1-costs" style="display:none;background:var(--green-l);border-top:1px solid #86efac;padding:8px 13px;">
+            <div style="font-size:10px;font-weight:700;color:var(--green-d);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;">💰 What you'd pay</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 8px;">
+              <div class="mi-ci"><span class="mi-ck">Monthly premium</span><span class="mi-cv-free">$0</span></div>
+              <div class="mi-ci"><span class="mi-ck">Deductible</span><span class="mi-cv-free">$0</span></div>
+              <div class="mi-ci"><span class="mi-ck">Co-pay — primary</span><span class="mi-cv-low">$1–$4</span></div>
+              <div class="mi-ci"><span class="mi-ck">Co-pay — ER</span><span class="mi-cv-low">$3–$8</span></div>
+              <div class="mi-ci"><span class="mi-ck">Out-of-pocket max</span><span class="mi-cv-free">$0</span></div>
+              <div class="mi-ci"><span class="mi-ck">Dental & vision</span><span class="mi-cv-free">Included</span></div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="mi-apply-area"><button class="mi-apply-btn">Apply Online</button></div>
-      <div class="mi-body" id="mi-body"></div>
+      <div class="rec-bar"><b>Recommendation:</b> Add <code>coverage_tier</code> and <code>cost_sharing_*</code> fields to the Program model. Populate via admin portal. No new API calls — closes MFB-1024 core goal.</div>
     </div>
+  </div>
+
+  <!-- Gap 2 -->
+  <div class="gap-page" id="gp-g2">
+    <div class="gap-card">
+      <div class="gap-hdr"><div class="gap-hdr-title">Gap 2 — Step 5: no current premium amount collected</div><span class="gap-tag">Step 5 · New field</span></div>
+      <div class="gap-note-strip"><b>Problem:</b> When someone selects employer or private insurance, MFB never asks what they pay. MFB-148 shows full SLCSP savings even if their current plan is subsidized. A follow-up field enables accurate <em>net</em> savings. Try selecting a tile below.</div>
+      <div class="mfb-hdr" style="border-radius:0;"><div class="logo"><div class="logo-box">✓</div><div><div class="logo-name">myfriend<b>ben</b></div><div class="logo-state">COLORADO</div></div></div><div style="color:rgba(255,255,255,.65);font-size:11px;">🌐 ENGLISH ▾</div></div>
+      <div class="prog-area"><div class="prog-track"><div class="prog-fill" style="width:42%;"></div></div><div class="prog-lbl">Step 5 of 12</div></div>
+      <div class="s-body">
+        <div class="s-head">Tell us about each person...</div>
+        <div class="s-div"></div>
+        <div class="q-lbl" style="margin-bottom:7px;">Health insurance — select all that apply</div>
+        <div class="tile-grid">
+          <div class="ins-tile" onclick="pickTile(this,'none')"><span class="tile-ico">❓</span><div class="tile-lbl">None / unsure</div></div>
+          <div class="ins-tile sel" onclick="pickTile(this,'employer')"><span class="tile-ico">🏢</span><div class="tile-lbl">Employer coverage</div></div>
+          <div class="ins-tile" onclick="pickTile(this,'private')"><span class="tile-ico">🔒</span><div class="tile-lbl">Private insurance</div></div>
+          <div class="ins-tile" onclick="pickTile(this,'medicaid')"><span class="tile-ico">🏥</span><div class="tile-lbl">Health First Colorado</div></div>
+          <div class="ins-tile" onclick="pickTile(this,'medicare')"><span class="tile-ico">💊</span><div class="tile-lbl">Medicare</div></div>
+          <div class="ins-tile" onclick="pickTile(this,'chp')"><span class="tile-ico">👶</span><div class="tile-lbl">CHP+</div></div>
+        </div>
+        <div class="prop-wrap" id="prem-wrap">
+          <div class="prop-badge">Proposed new field</div>
+          <div class="q-lbl" id="prem-q">How much do you pay each month for your employer coverage?</div>
+          <div class="q-hint" style="margin-top:3px;">Your share of the premium. Enter 0 if your employer covers the full cost.</div>
+          <div class="dollar-w" style="margin-top:8px;"><span class="dollar-s">$</span><input class="f-input dollar-i" type="number" placeholder="0" oninput="calcNet(this.value)"></div>
+          <div class="f-label">Frequency</div>
+          <div class="tog-row"><button class="tog-opt on">Monthly</button><button class="tog-opt">Yearly</button></div>
+          <div class="savings-preview" id="sav-prev"><strong>Estimated net savings from Medicaid: <span id="net-val">$310/month</span></strong><br><span style="font-size:10px;opacity:.8;">SLCSP ($310) minus your current premium ($<span id="cur-prem">0</span>/month)</span></div>
+        </div>
+      </div>
+      <div class="nav-row-b"><button class="n-back">‹ BACK</button><button class="n-cont">CONTINUE ›</button></div>
+      <div class="rec-bar"><b>Recommendation:</b> New conditional field — <code>current_insurance_premium_amount</code> + frequency. Shows only when <code>insurance = employer</code> or <code>private</code>. Enables accurate net savings for MFB-148.</div>
+    </div>
+  </div>
+
+  <!-- Gap 3 -->
+  <div class="gap-page" id="gp-g3">
+    <div class="gap-card">
+      <div class="gap-hdr"><div class="gap-hdr-title">Gap 3 — Step 6: medical expense field needs to be split</div><span class="gap-tag">Step 6 · Split field</span></div>
+      <div class="gap-note-strip"><b>Problem:</b> "Medical insurance premium and/or bills" is one combined field. Policy Engine now needs them separate — premiums for insurance calculations, bills for the SNAP medical deduction. This is also connected to the MFB-1100 PE Frontier migration.</div>
+      <div class="mfb-hdr" style="border-radius:0;"><div class="logo"><div class="logo-box">✓</div><div><div class="logo-name">myfriend<b>ben</b></div><div class="logo-state">COLORADO</div></div></div><div style="color:rgba(255,255,255,.65);font-size:11px;">🌐 ENGLISH ▾</div></div>
+      <div class="prog-area"><div class="prog-track"><div class="prog-fill" style="width:50%;"></div></div><div class="prog-lbl">Step 6 of 12</div></div>
+      <div class="s-body">
+        <div class="s-head">Tell us about your household expenses...</div>
+        <div class="s-div"></div>
+        <div style="opacity:.3;margin-bottom:18px;">
+          <div class="exp-sec-hdr">Housing</div>
+          <div class="col-hdrs"><span class="c-hdr">Amount</span><span class="c-hdr">Frequency</span></div>
+          <div class="exp-row"><span class="exp-lbl">Rent</span><div style="position:relative;"><span style="position:absolute;left:7px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:11px;">$</span><input class="exp-amt" value="950"></div><div class="exp-freq"><button class="on">Monthly</button><button>Yearly</button></div></div>
+        </div>
+        <div class="exp-sec-hdr">Healthcare</div>
+        <div class="col-hdrs"><span class="c-hdr">Amount</span><span class="c-hdr">Frequency</span></div>
+        <div class="exp-row dim"><span class="exp-lbl"><span style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:2px;">Current (combined)</span>Medical insurance premium and/or bills</span><div style="position:relative;"><span style="position:absolute;left:7px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:11px;">$</span><input class="exp-amt" value="0"></div><div class="exp-freq"><button class="on">Monthly</button><button>Yearly</button></div></div>
+        <div class="prop-wrap" style="margin-top:10px;">
+          <div class="prop-badge">Proposed — split into two fields</div>
+          <div style="margin-top:6px;">
+            <div class="exp-row" style="margin-bottom:6px;">
+              <span class="exp-lbl"><strong>Health insurance premiums</strong><span style="display:block;font-size:10px;color:var(--muted);font-weight:400;margin-top:1px;">Your monthly premium payments</span></span>
+              <div style="position:relative;"><span style="position:absolute;left:7px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:11px;">$</span><input class="exp-amt" value="0"></div>
+              <div class="exp-freq"><button class="on">Monthly</button><button>Yearly</button></div>
+            </div>
+            <div class="exp-row">
+              <span class="exp-lbl"><strong>Other medical bills</strong><span style="display:block;font-size:10px;color:var(--muted);font-weight:400;margin-top:1px;">Out-of-pocket medical expenses</span></span>
+              <div style="position:relative;"><span style="position:absolute;left:7px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:11px;">$</span><input class="exp-amt" value="0"></div>
+              <div class="exp-freq"><button class="on">Monthly</button><button>Yearly</button></div>
+            </div>
+          </div>
+          <div style="margin-top:10px;padding:7px 9px;background:var(--blue-l);border-radius:4px;font-size:11px;color:var(--blue);line-height:1.5;"><strong>Why:</strong> SNAP medical deduction applies to bills, not premiums. Splitting also aligns with PE's <code>health_insurance_premiums</code> and <code>other_medical_expenses</code> variables (MFB-1100).</div>
+        </div>
+      </div>
+      <div class="nav-row-b"><button class="n-back">‹ BACK</button><button class="n-cont">CONTINUE ›</button></div>
+      <div class="rec-bar"><b>Recommendation:</b> Split <code>medical_out_of_pocket_expenses</code> into <code>health_insurance_premiums</code> and <code>other_medical_expenses</code>. Aligns with PE Frontier API variable names (MFB-1100). Fixes SNAP medical deduction and MFB-148 net savings calculation.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- More Info modal -->
+<div class="modal-wrap" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="mi-strip">
+      <button class="mi-back" onclick="closeModal()">‹ BACK TO RESULTS</button>
+      <button class="pill">SAVE MY RESULTS 🖫</button>
+    </div>
+    <div class="mi-head">
+      <div class="mi-icon" id="mi-icon">🏥</div>
+      <div>
+        <div class="mi-cat" id="mi-cat">Health Care</div>
+        <div class="mi-div"></div>
+        <div class="mi-name" id="mi-name">Program</div>
+        <div class="tier" id="mi-tier" style="margin-top:7px;"></div>
+      </div>
+    </div>
+    <div class="mi-est">
+      <div class="mi-est-row"><span class="mi-est-lbl">Estimated Annual Value</span><span class="mi-est-val" id="mi-annual">—</span></div>
+      <div class="mi-est-row"><span class="mi-est-lbl">Estimated Time to Apply</span><span class="mi-est-val" id="mi-time">—</span></div>
+    </div>
+    <div class="mi-apply"><button class="mi-apply-btn">Apply Online</button></div>
+    <div class="mi-body" id="mi-body"></div>
   </div>
 </div>
 
 <script>
-var prop='a', state='co';
+var st='co';
 
-var DATA={
+var STATES={
   co:{label:'COLORADO',count:19,mo:'$1,786',yr:'$11,972',
-    noteA:'<b>Proposal A · Colorado</b> — Values from codebase: Adult $310/mo, Child $200/mo (hard-coded SLCSP estimates). PE returning ~$334 for some CO households. MFB-148 pending for full dynamic values per zip/rating area.',
-    noteB:'<b>Proposal B · Colorado</b> — Clean cards with tier badges. Click <b>More Info</b> on any card to see the real-style detail page with cost breakdown, what\'s covered, navigator, and key documents.',
+    note:'<b>Colorado</b> · Hard-coded values (SLCSP 2023 estimates). MFB-148 pending for dynamic PE values per rating area.',
     cats:[{icon:'🏥',name:'Health Care',total:'$530/month',progs:[
-      {name:'Health First Colorado (Medicaid)',fl:'done',elig:['Yourself','Child, 5'],tc:'t-comp',tier:'⭐ Comprehensive',
-       tVal:'45 min',pCost:'$0/month',pClass:'green',pSub:'~$310–$347/month saved vs. private insurance',annual:'$3,720–$4,164/year',
-       costs:[['Monthly premium','$0','c-free'],['Annual deductible','$0','c-free'],['Co-pay — primary care','$1–$4','c-low'],['Co-pay — specialist','$0–$8','c-low'],['Co-pay — ER','$3–$8','c-low'],['Out-of-pocket max','$0','c-free']],
-       covers:['Medical care','Dental','Vision','Behavioral health','Prescriptions','Long-term care'],
-       desc:'Free comprehensive health coverage for eligible Coloradans earning up to 138% FPL. Covers medical visits, hospital stays, prescriptions, dental, vision, and behavioral health with little to no out-of-pocket cost. Value: $310/month (hard-coded) — MFB-148 will replace with dynamic PE value per rating area.',
-       navigator:'PEAK (Colorado Benefits Portal)',navDesc:'Apply online at peak.colorado.gov. Applications typically processed within 45 days.',
-       docs:['Proof of Colorado residency','Photo ID or birth certificate','Social Security number (if available)','Proof of income (pay stubs, tax return)']},
-      {name:'Child Health Plan Plus (CHP+)',fl:null,elig:['Child, 5'],tc:'t-std',tier:'✓ Standard',
-       tVal:'30 min',pCost:'$0–$25/month',pClass:'green',pSub:'Income-based premium · ~$200/month saved',annual:'$2,400/year',
-       costs:[['Monthly premium','$0–$25','c-mid'],['Annual deductible','$0','c-free'],['Co-pay — primary care','$5–$15','c-low'],['Co-pay — specialist','$10–$20','c-low'],['Co-pay — ER','$25','c-low'],['Out-of-pocket max','≤5% income','c-mid']],
-       covers:['Medical care','Dental (limited)','Vision (limited)','Mental health','Prescriptions','Preventive care'],
-       desc:'Low-cost health coverage for children in families earning 133–260% FPL. Premium is income-based and capped so families never pay more than 5% of annual income on CHIP costs combined.',
-       navigator:'PEAK (Colorado Benefits Portal)',navDesc:'Apply at peak.colorado.gov or call 1-800-359-1991',
-       docs:['Child\'s birth certificate','Social Security number','Proof of household income','Proof of Colorado residency']},
-      {name:'HFC Buy-In (Adults with Disabilities)',fl:null,elig:['Yourself'],tc:'t-comp',tier:'⭐ Comprehensive',
-       tVal:'60 min',pCost:'Income-tested',pClass:'yellow',pSub:'Full Medicaid coverage · premium scales with earned income',annual:'$3,720/year',
-       costs:[['Monthly premium','Income-tested','c-mid'],['Annual deductible','$0','c-free'],['Co-pay — primary care','$1–$4','c-low'],['Co-pay — specialist','$0–$8','c-low'],['Co-pay — ER','$3–$8','c-low'],['Out-of-pocket max','$0','c-free']],
-       covers:['Medical care','Dental','Vision','Behavioral health','Prescriptions','Long-term care'],
-       desc:'Full Health First Colorado coverage for working adults with qualifying disabilities. Monthly premium is income-tested, allowing you to keep comprehensive Medicaid coverage even as your earned income grows.',
-       navigator:'PEAK (Colorado Benefits Portal)',navDesc:'Apply at peak.colorado.gov. May require disability documentation.',
-       docs:['Proof of disability (SSA letter or medical documentation)','Proof of earned income','Social Security number','Proof of Colorado residency']},
+      {name:'Health First Colorado (Medicaid)',fl:'live',pe:false,elig:['Yourself','Child, 5'],tc:'t-comp',tier:'★ Comprehensive',tVal:'45 min',cost:'$0/month',cv:'green-v',sub:'~$310–$347/month saved',annual:'$3,720–$4,164/yr',costs:[['Monthly premium','$0','mi-cv-free'],['Deductible','$0','mi-cv-free'],['Co-pay — primary','$1–$4','mi-cv-low'],['Co-pay — specialist','$0–$8','mi-cv-low'],['Co-pay — ER','$3–$8','mi-cv-low'],['Out-of-pocket max','$0','mi-cv-free']],covers:['Medical','Dental','Vision','Behavioral health','Prescriptions','Long-term care'],desc:'Free comprehensive health coverage for Coloradans up to 138% FPL. Value: $310/month hard-coded — MFB-148 will replace with dynamic PE value per rating area.',nav:'PEAK (Colorado Benefits Portal)',navDesc:'Apply at peak.colorado.gov',docs:['Colorado ID','Social Security number','Proof of income','Proof of residency']},
+      {name:'Child Health Plan Plus (CHP+)',fl:null,pe:false,elig:['Child, 5'],tc:'t-std',tier:'✓ Standard',tVal:'30 min',cost:'$0–$25/month',cv:'green-v',sub:'Income-based premium · ~$200/month saved',annual:'$2,400/yr',costs:[['Monthly premium','$0–$25','mi-cv-mid'],['Deductible','$0','mi-cv-free'],['Co-pay — primary','$5–$15','mi-cv-low'],['Co-pay — ER','$25','mi-cv-low'],['Out-of-pocket max','≤5% income','mi-cv-mid'],['Dental & vision','Limited','mi-cv-low']],covers:['Medical','Dental (limited)','Vision (limited)','Mental health','Prescriptions','Preventive care'],desc:'Low-cost coverage for children 133–260% FPL. Premium is income-based, capped at 5% of annual family income.',nav:'PEAK (Colorado Benefits Portal)',navDesc:'Apply at peak.colorado.gov',docs:["Child's birth certificate",'Social Security number','Proof of household income','Proof of residency']},
+      {name:'HFC Buy-In (Adults with Disabilities)',fl:null,pe:false,elig:['Yourself'],tc:'t-comp',tier:'★ Comprehensive',tVal:'60 min',cost:'Income-tested',cv:'yellow-v',sub:'Full Medicaid coverage · income-tested premium',annual:'$3,720/yr',costs:[['Monthly premium','Income-tested','mi-cv-mid'],['Deductible','$0','mi-cv-free'],['Co-pay — primary','$1–$4','mi-cv-low'],['Co-pay — ER','$3–$8','mi-cv-low'],['Coverage','Full Medicaid','mi-cv-free'],['Out-of-pocket max','$0','mi-cv-free']],covers:['Medical','Dental','Vision','Behavioral health','Prescriptions','Long-term care'],desc:'Full Medicaid for working adults with qualifying disabilities. Income-tested premium lets you keep coverage while working.',nav:'PEAK (Colorado Benefits Portal)',navDesc:'Apply at peak.colorado.gov',docs:['Proof of disability (SSA letter)','Proof of earned income','Social Security number','Proof of residency']},
     ]}]
   },
   ma:{label:'MASSACHUSETTS',count:16,mo:'$1,420',yr:'$9,840',
-    noteA:'<b>Proposal A · Massachusetts</b> — Values confirmed from codebase: Adult $419/mo, Child/CHIP $239/mo, Aged $185/mo, Emergency $255/mo. Correctly higher than CO — MA private insurance is among the most expensive in the US.',
-    noteB:'<b>Proposal B · Massachusetts</b> — MassHealth combines Medicaid and CHIP under one program. Click More Info on any card.',
+    note:'<b>Massachusetts</b> · Hard-coded values, correctly higher than CO — MA private insurance is among the most expensive in the US. MassHealth combines Medicaid + CHIP under one program.',
     cats:[{icon:'🏥',name:'Health Care',total:'$658/month',progs:[
-      {name:'MassHealth — Adult (Medicaid)',fl:'done',elig:['Yourself'],tc:'t-comp',tier:'⭐ Comprehensive',
-       tVal:'45 min',pCost:'$0/month',pClass:'green',pSub:'~$419/month saved — highest adult Medicaid value in MFB',annual:'$5,028/year',
-       costs:[['Monthly premium','$0','c-free'],['Annual deductible','$0','c-free'],['Co-pay — primary care','$1–$3','c-low'],['Co-pay — specialist','$0–$5','c-low'],['Co-pay — ER','$3–$8','c-low'],['Out-of-pocket max','$0','c-free']],
-       covers:['Medical care','Dental','Vision','Behavioral health','Prescriptions','Long-term care'],
-       desc:'Free comprehensive health coverage through MassHealth. One of the most generous Medicaid programs in the country. Value: $419/month (hard-coded SLCSP estimate) — correctly higher than CO because MA private insurance costs more.',
-       navigator:'MassHealth Member Service Center',navDesc:'Call 1-800-841-2900 or apply at mass.gov/masshealth',
-       docs:['Proof of Massachusetts residency','Photo ID','Social Security number','Proof of income']},
-      {name:'MassHealth — Child / CHIP pathway',fl:null,elig:['Child'],tc:'t-comp',tier:'⭐ Comprehensive',
-       tVal:'45 min',pCost:'$0/month',pClass:'green',pSub:'~$239/month saved · same application as adult MassHealth',annual:'$2,868/year',
-       costs:[['Monthly premium','$0','c-free'],['Annual deductible','$0','c-free'],['Co-pay — primary care','$1–$3','c-low'],['Co-pay — specialist','$0–$5','c-low'],['Co-pay — ER','$3–$8','c-low'],['Out-of-pocket max','$0','c-free']],
-       covers:['Medical care','Dental','Vision','Mental health','Prescriptions','Preventive care'],
-       desc:'Comprehensive coverage for children through MassHealth. Massachusetts uniquely combines Medicaid and CHIP under one program — the same calculator handles both pathways via fallback logic.',
-       navigator:'MassHealth Member Service Center',navDesc:'Call 1-800-841-2900 or apply at mass.gov/masshealth',
-       docs:['Child\'s birth certificate','Proof of residency','Social Security number','Proof of household income']},
-      {name:'MassHealth — Aged (65+)',fl:null,elig:['Member 65+'],tc:'t-sup',tier:'✓ Supplemental',
-       tVal:'45 min',pCost:'$0/month',pClass:'green',pSub:'Supplements Medicare · ~$185/month saved on cost-sharing',annual:'$2,220/year',
-       costs:[['Monthly premium','$0','c-free'],['Medicare deductible','Covered','c-free'],['Medicare co-pays','Covered','c-free'],['Part B premium help','Partial','c-low'],['Primary coverage','Medicare','c-low'],['Out-of-pocket max','~$0','c-free']],
-       covers:['Medicare cost-sharing','Part B assistance','Medicare deductible','Co-pay coverage','Prescription help','Limited extra benefits'],
-       desc:'MassHealth for members 65+ supplements Medicare by covering Medicare\'s deductibles, co-pays, and partial Part B premium. Primary coverage remains Medicare. Value: $185/month (hard-coded).',
-       navigator:'MassHealth Member Service Center',navDesc:'Call 1-800-841-2900',
-       docs:['Medicare card (Part A and B)','Proof of Massachusetts residency','Social Security number','Bank statements (asset verification)']},
-      {name:'MassHealth Limited (Emergency Medicaid)',fl:null,elig:['Yourself'],tc:'t-emg',tier:'⚡ Emergency Only',
-       tVal:'30 min',pCost:'$0/month',pClass:'green',pSub:'Emergency services only — not full coverage',annual:'$3,060/year',
-       costs:[['Monthly premium','$0','c-free'],['Emergency care','Covered','c-free'],['Routine care','Not covered','c-mid'],['Preventive care','Not covered','c-mid'],['Co-pay — ER','$0–$3','c-low'],['Annual scope','Emergency only','c-mid']],
-       covers:['Emergency room','Emergency surgery','Stabilization','Emergency ambulance','Crisis mental health','Emergency dental'],
-       desc:'Emergency-only Medicaid for individuals ineligible for full MassHealth. Does not include routine care, preventive visits, or ongoing treatment. Value: $255/month (hard-coded flat rate — unique to MA).',
-       navigator:'MassHealth Member Service Center',navDesc:'Call 1-800-841-2900',
-       docs:['Photo ID','Proof of Massachusetts address','Immigration documentation']},
-      {name:"Children's Medical Security Plan (CMSP)",fl:null,elig:['Child'],tc:'t-std',tier:'✓ Standard',
-       tVal:'20 min',pCost:'Low cost',pClass:'green',pSub:'State-specific plan for uninsured children',annual:'Custom',
-       costs:[['Monthly premium','$0–$10','c-low'],['Annual deductible','$0','c-free'],['Co-pay — primary care','$0–$5','c-low'],['Co-pay — specialist','$5–$10','c-low'],['Dental','Limited','c-mid'],['Out-of-pocket max','Low','c-low']],
-       covers:['Primary care visits','Basic prescriptions','Immunizations','Lab tests','Limited dental','Basic vision'],
-       desc:'Massachusetts state plan for uninsured children who don\'t qualify for MassHealth. No Policy Engine equivalent — custom calculator. Low income-based costs.',
-       navigator:'MassHealth Member Service Center',navDesc:'Apply at mass.gov/masshealth',
-       docs:['Child\'s birth certificate','Proof of MA residency','Proof of income','Social Security number']},
+      {name:'MassHealth — Adult (Medicaid)',fl:'live',pe:false,elig:['Yourself'],tc:'t-comp',tier:'★ Comprehensive',tVal:'45 min',cost:'$0/month',cv:'green-v',sub:'~$419/month saved — highest adult Medicaid value in MFB',annual:'$5,028/yr',costs:[['Monthly premium','$0','mi-cv-free'],['Deductible','$0','mi-cv-free'],['Co-pay — primary','$1–$3','mi-cv-low'],['Co-pay — ER','$3–$8','mi-cv-low'],['Dental & vision','Included','mi-cv-free'],['Out-of-pocket max','$0','mi-cv-free']],covers:['Medical','Dental','Vision','Behavioral health','Prescriptions','Long-term care'],desc:'Free comprehensive coverage through MassHealth. Value: $419/month (hard-coded). Higher than CO because MA private insurance premiums are more expensive.',nav:'MassHealth Member Service Center',navDesc:'Call 1-800-841-2900 or apply at mass.gov/masshealth',docs:['Proof of MA residency','Photo ID','Social Security number','Proof of income']},
+      {name:'MassHealth — Child / CHIP',fl:null,pe:false,elig:['Child'],tc:'t-comp',tier:'★ Comprehensive',tVal:'45 min',cost:'$0/month',cv:'green-v',sub:'~$239/month saved · same application as adult MassHealth',annual:'$2,868/yr',costs:[['Monthly premium','$0','mi-cv-free'],['Deductible','$0','mi-cv-free'],['Co-pay — primary','$1–$3','mi-cv-low'],['Co-pay — ER','$3–$8','mi-cv-low'],['Dental & vision','Included','mi-cv-free'],['Out-of-pocket max','$0','mi-cv-free']],covers:['Medical','Dental','Vision','Mental health','Prescriptions','Preventive care'],desc:'Comprehensive coverage for children. MA combines Medicaid and CHIP under MassHealth — same calculator handles both via fallback.',nav:'MassHealth Member Service Center',navDesc:'Call 1-800-841-2900',docs:["Child's birth certificate",'Proof of residency','Social Security number','Proof of income']},
+      {name:'MassHealth — Aged (65+)',fl:null,pe:false,elig:['Member 65+'],tc:'t-sup',tier:'✓ Supplemental',tVal:'45 min',cost:'$0/month',cv:'green-v',sub:'Supplements Medicare · ~$185/month saved',annual:'$2,220/yr',costs:[['Monthly premium','$0','mi-cv-free'],['Medicare deductible','Covered','mi-cv-free'],['Medicare co-pays','Covered','mi-cv-free'],['Part B premium','Partial','mi-cv-low'],['Primary coverage','Medicare','mi-cv-low'],['Out-of-pocket max','~$0','mi-cv-free']],covers:['Medicare cost-sharing','Part B assistance','Medicare deductible','Co-pay coverage','Prescription help','Limited extra benefits'],desc:'Supplements Medicare by covering Medicare\'s deductibles, co-pays, and partial Part B premium. Primary coverage remains Medicare.',nav:'MassHealth Member Service Center',navDesc:'Call 1-800-841-2900',docs:['Medicare card','Proof of MA residency','Social Security number','Bank statements']},
+      {name:'MassHealth Limited (Emergency)',fl:null,pe:false,elig:['Yourself'],tc:'t-emg',tier:'⚡ Emergency Only',tVal:'30 min',cost:'$0/month',cv:'green-v',sub:'Emergency services only — not full coverage',annual:'$3,060/yr',costs:[['Monthly premium','$0','mi-cv-free'],['Emergency care','Covered','mi-cv-free'],['Routine care','Not covered','mi-cv-mid'],['Preventive care','Not covered','mi-cv-mid'],['Co-pay — ER','$0–$3','mi-cv-low'],['Annual scope','Emergency only','mi-cv-mid']],covers:['Emergency room','Emergency surgery','Stabilization','Emergency ambulance','Crisis mental health','Emergency dental'],desc:'Emergency-only Medicaid for those ineligible for full MassHealth. Does not cover routine or preventive care.',nav:'MassHealth Member Service Center',navDesc:'Call 1-800-841-2900',docs:['Photo ID','Proof of MA address','Immigration documentation']},
     ]}]
   },
   il:{label:'ILLINOIS',count:22,mo:'$2,104',yr:'$8,640',
-    noteA:'<b>Proposal A · Illinois</b> — Values: ACA Adults $474/mo (hard-coded flat, highest in MFB). HBWD uses Policy Engine (dynamic). IL has the most Medicaid sub-programs of any MFB state.',
-    noteB:'<b>Proposal B · Illinois</b> — IL\'s sub-programs (FamilyCare vs. ACA Adults vs. Moms & Babies) are confusing. More Info pages can explain which applies to whom.',
+    note:'<b>Illinois</b> · ACA Adults value ($474/mo) is the highest in MFB. HBWD uses Policy Engine. Most fragmented Medicaid structure of any MFB state — multiple sub-programs with different income tests.',
     cats:[{icon:'🏥',name:'Health Care',total:'$948/month',progs:[
-      {name:'Medicaid ACA Adults (ages 19–64)',fl:'done',elig:['Yourself'],tc:'t-comp',tier:'⭐ Comprehensive',
-       tVal:'45 min',pCost:'$0/month',pClass:'green',pSub:'~$474/month saved — highest value in MFB',annual:'$5,688/year',
-       costs:[['Monthly premium','$0','c-free'],['Annual deductible','$0','c-free'],['Co-pay — primary care','$0–$3','c-free'],['Co-pay — specialist','$0–$5','c-low'],['Co-pay — ER','$3–$8','c-low'],['Out-of-pocket max','$0','c-free']],
-       covers:['Medical care','Dental','Vision','Behavioral health','Prescriptions','Substance use treatment'],
-       desc:'Free comprehensive Medicaid for Illinois adults ages 19–64. Cannot be receiving FamilyCare or Moms & Babies to qualify through this pathway. Value: $474/month flat (hard-coded) — highest in MFB because IL private insurance premiums are high.',
-       navigator:'Illinois ABE (Application for Benefits Eligibility)',navDesc:'Apply at abe.illinois.gov or call 1-800-843-6154',
-       docs:['Illinois ID or driver\'s license','Social Security number','Proof of income','Proof of residency']},
-      {name:'FamilyCare (Parents & Caretakers)',fl:null,elig:['Yourself'],tc:'t-comp',tier:'⭐ Comprehensive',
-       tVal:'45 min',pCost:'$0/month',pClass:'green',pSub:'Full Medicaid coverage · income limit 133% FPL',annual:'Custom',
-       costs:[['Monthly premium','$0','c-free'],['Annual deductible','$0','c-free'],['Co-pay — primary care','$0–$3','c-free'],['Co-pay — ER','$3–$8','c-low'],['Dental & vision','Included','c-free'],['Out-of-pocket max','$0','c-free']],
-       covers:['Medical care','Dental','Vision','Behavioral health','Prescriptions','Preventive care'],
-       desc:'Full Medicaid for Illinois parents and caretakers. Separate income test from ACA Adults — income limit at 133% FPL. Custom calculator.',
-       navigator:'Illinois ABE',navDesc:'Apply at abe.illinois.gov',
-       docs:['Illinois ID','Social Security number','Proof of income','Proof of dependent relationship']},
-      {name:'Moms & Babies (Perinatal Medicaid)',fl:null,elig:['Yourself'],tc:'t-comp',tier:'⭐ Comprehensive',
-       tVal:'30 min',pCost:'$0/month',pClass:'green',pSub:'Pregnancy & postpartum · 12 months after birth',annual:'Custom',
-       costs:[['Monthly premium','$0','c-free'],['Prenatal visits','$0','c-free'],['Labor & delivery','$0','c-free'],['Postpartum coverage','12 months','c-free'],['Newborn coverage','Included','c-free'],['Out-of-pocket max','$0','c-free']],
-       covers:['Prenatal care','Labor & delivery','Postpartum care','Newborn care','Mental health','Prescriptions'],
-       desc:'Comprehensive Medicaid for pregnant individuals and up to 12 months postpartum in Illinois. IL-specific program — does not use the $474 flat rate.',
-       navigator:'Illinois ABE',navDesc:'Apply at abe.illinois.gov',
-       docs:['Illinois ID','Social Security number','Proof of pregnancy','Proof of income']},
-      {name:'All Kids (CHIP, under 19)',fl:null,elig:['Child'],tc:'t-std',tier:'✓ Standard',
-       tVal:'30 min',pCost:'$15–$40/month',pClass:'yellow',pSub:'Income-based premium tiers · up to 300% FPL',annual:'$2,400/year',
-       costs:[['Monthly premium','$15–$40','c-mid'],['Annual deductible','$0','c-free'],['Co-pay — primary care','$5–$20','c-low'],['Co-pay — specialist','$10–$30','c-mid'],['Co-pay — ER','$25–$40','c-mid'],['Out-of-pocket max','≤5% income','c-mid']],
-       covers:['Medical care','Dental','Vision','Mental health','Prescriptions','Preventive care'],
-       desc:'Comprehensive health coverage for Illinois children under 19. Income-based premium tiers. Families never pay more than 5% of annual income on All Kids costs combined.',
-       navigator:'Illinois ABE',navDesc:'Apply at abe.illinois.gov or call 1-800-843-6154',
-       docs:['Child\'s birth certificate','Social Security number','Proof of household income','Proof of residency']},
-      {name:'HBWD — Workers with Disabilities',fl:'pe',elig:['Yourself'],tc:'t-comp',tier:'⭐ Comprehensive',
-       tVal:'60 min',pCost:'Income-tested',pClass:'yellow',pSub:'Dynamic PE value · same coverage as full Medicaid',annual:'PE-calculated',
-       costs:[['Monthly premium','Income-tested','c-mid'],['Annual deductible','$0','c-free'],['Co-pay — primary care','$1–$4','c-low'],['Co-pay — specialist','$0–$8','c-low'],['Co-pay — ER','$3–$8','c-low'],['Out-of-pocket max','$0','c-free']],
-       covers:['Medical care','Dental','Vision','Behavioral health','Prescriptions','Long-term care'],
-       desc:'Full Medicaid for working Illinois adults with disabilities. Policy Engine driven (il_hbwd_person). The gold standard for Buy-In programs in MFB — dynamic value via PE.',
-       navigator:'Illinois ABE',navDesc:'Apply at abe.illinois.gov or call 1-800-226-0768',
-       docs:['Proof of disability (SSA determination)','Proof of employment/earned income','Social Security number','Proof of Illinois residency']},
-      {name:'Emergency Medicaid (Non-Citizens)',fl:null,elig:['Yourself'],tc:'t-emg',tier:'⚡ Emergency Only',
-       tVal:'20 min',pCost:'$0/month',pClass:'green',pSub:'Emergency services only · does not show in Step 8',annual:'Custom',
-       costs:[['Monthly premium','$0','c-free'],['Emergency care','Covered','c-free'],['Routine care','Not covered','c-mid'],['Preventive care','Not covered','c-mid'],['Co-pay — ER','$0–$3','c-low'],['Out-of-pocket max','Limited','c-mid']],
-       covers:['Emergency room','Emergency surgery','Stabilization','Emergency ambulance','Crisis mental health','Emergency dental'],
-       desc:'Emergency-only Medicaid for non-citizens in Illinois. Does not show in Step 8 (Has Benefits) — engineering decision since insurance is captured at Step 5.',
-       navigator:'Illinois ABE',navDesc:'Apply at abe.illinois.gov',
-       docs:['Photo ID','Proof of Illinois address','Immigration documentation']},
+      {name:'Medicaid ACA Adults (19–64)',fl:'live',pe:false,elig:['Yourself'],tc:'t-comp',tier:'★ Comprehensive',tVal:'45 min',cost:'$0/month',cv:'green-v',sub:'~$474/month saved — highest value in MFB',annual:'$5,688/yr',costs:[['Monthly premium','$0','mi-cv-free'],['Deductible','$0','mi-cv-free'],['Co-pay — primary','$0–$3','mi-cv-free'],['Co-pay — specialist','$0–$5','mi-cv-low'],['Co-pay — ER','$3–$8','mi-cv-low'],['Out-of-pocket max','$0','mi-cv-free']],covers:['Medical','Dental','Vision','Behavioral health','Prescriptions','Substance use treatment'],desc:'Free Medicaid for IL adults 19–64. Cannot be receiving FamilyCare or Moms & Babies. Value: $474/month flat (hard-coded).',nav:'Illinois ABE',navDesc:'Apply at abe.illinois.gov or call 1-800-843-6154',docs:['Illinois ID','Social Security number','Proof of income','Proof of residency']},
+      {name:'All Kids (CHIP, under 19)',fl:null,pe:false,elig:['Child'],tc:'t-std',tier:'✓ Standard',tVal:'30 min',cost:'$15–$40/month',cv:'yellow-v',sub:'Income-based premium tiers · up to 300% FPL',annual:'$2,400/yr',costs:[['Monthly premium','$15–$40','mi-cv-mid'],['Deductible','$0','mi-cv-free'],['Co-pay — primary','$5–$20','mi-cv-low'],['Co-pay — ER','$25–$40','mi-cv-mid'],['Out-of-pocket max','≤5% income','mi-cv-mid'],['Dental & vision','Included','mi-cv-low']],covers:['Medical','Dental','Vision','Mental health','Prescriptions','Preventive care'],desc:'Comprehensive coverage for IL children under 19. Income-based premium tiers. Families never pay more than 5% of annual income on All Kids costs.',nav:'Illinois ABE',navDesc:'Apply at abe.illinois.gov',docs:["Child's birth certificate",'Social Security number','Proof of household income','Proof of residency']},
+      {name:'HBWD — Workers with Disabilities',fl:'pe',pe:true,elig:['Yourself'],tc:'t-comp',tier:'★ Comprehensive',tVal:'60 min',cost:'Income-tested',cv:'yellow-v',sub:'Dynamic PE value · same coverage as Medicaid',annual:'PE-calculated',costs:[['Monthly premium','Income-tested','mi-cv-mid'],['Deductible','$0','mi-cv-free'],['Co-pay — primary','$1–$4','mi-cv-low'],['Co-pay — ER','$3–$8','mi-cv-low'],['Coverage','Full Medicaid','mi-cv-free'],['Out-of-pocket max','$0','mi-cv-free']],covers:['Medical','Dental','Vision','Behavioral health','Prescriptions','Long-term care'],desc:'Full Medicaid for working IL adults with disabilities. Policy Engine driven (il_hbwd_person). The gold standard for Buy-In programs in MFB.',nav:'Illinois ABE',navDesc:'Apply at abe.illinois.gov or call 1-800-226-0768',docs:['Proof of disability (SSA)','Proof of earned income','Social Security number','Proof of residency']},
     ]}]
   },
   nc:{label:'NORTH CAROLINA',count:14,mo:'$985',yr:'$4,200',
-    noteA:'<b>Proposal A · North Carolina</b> — NC Medicaid uses Policy Engine (dynamic values). Medicare Savings uses a custom calculator — NC has state-specific asset limits ($9,660 single / $14,470 married) and an SSI exclusion rule.',
-    noteB:'<b>Proposal B · North Carolina</b> — Medicare Savings cards most benefit from More Info — the supplemental/QMB/SLMB distinction needs explanation.',
+    note:'<b>North Carolina</b> · Expansion state (2023). Policy Engine driven for main Medicaid. Medicare Savings uses a custom calculator — NC has state-specific asset limits ($9,660 single / $14,470 married) and an SSI exclusion rule.',
     cats:[{icon:'🏥',name:'Health Care',total:'$395/month',progs:[
-      {name:'NC Medicaid (ACA Expansion Adults)',fl:'pe',elig:['Yourself'],tc:'t-comp',tier:'⭐ Comprehensive',
-       tVal:'45 min',pCost:'$0/month',pClass:'green',pSub:'Dynamic PE value · NC expanded Medicaid in 2023',annual:'PE-calculated',
-       costs:[['Monthly premium','$0','c-free'],['Annual deductible','$0','c-free'],['Co-pay — primary care','$1–$4','c-low'],['Co-pay — specialist','$0–$8','c-low'],['Co-pay — ER','$3–$8','c-low'],['Out-of-pocket max','$0','c-free']],
-       covers:['Medical care','Dental','Vision','Behavioral health','Prescriptions','Preventive care'],
-       desc:'Free comprehensive Medicaid for NC adults earning up to 138% FPL. NC expanded Medicaid in late 2023. Policy Engine calculates the value dynamically for this household.',
-       navigator:'NC ePASS',navDesc:'Apply at epass.nc.gov or call NC Medicaid 1-888-245-0179',
-       docs:['NC ID or driver\'s license','Social Security number','Proof of income','Proof of NC residency']},
-      {name:'Medicare Savings — QMB',fl:null,elig:['Yourself'],tc:'t-sup',tier:'✓ Supplemental',
-       tVal:'30 min',pCost:'$0/month',pClass:'green',pSub:'Pays Part B premium (~$185/mo) + all Medicare cost-sharing',annual:'~$2,220/year',
-       costs:[['Monthly premium','$0','c-free'],['Covers Part B premium','~$185/mo','c-free'],['Covers Part A deductible','Yes','c-free'],['Covers Medicare co-pays','Yes','c-free'],['Asset limit (single)','$9,660','c-low'],['Asset limit (married)','$14,470','c-low']],
-       covers:['Part B premium (~$185/mo)','Part A deductible','Medicare co-pays','Medicare deductibles','Hospital cost-sharing','Prescription cost help'],
-       desc:'QMB pays all of Medicare\'s costs for you. NC uses state-specific asset limits that differ from the federal standard. Must not be receiving SSI or other Medicaid to qualify for QI tier. Custom NC calculator.',
-       navigator:'NC SHIIP (Senior Health Insurance Information Program)',navDesc:'Free Medicare counseling: call 1-855-408-1212',
-       docs:['Medicare card (Part A and B)','NC ID','Social Security number','Bank statements (for asset test)','Proof of income']},
-      {name:'Medicare Savings — SLMB / QI',fl:null,elig:['Yourself'],tc:'t-sup',tier:'✓ Supplemental',
-       tVal:'30 min',pCost:'$0/month',pClass:'green',pSub:'Pays Medicare Part B premium only (~$185/month)',annual:'~$2,220/year',
-       costs:[['Monthly premium','$0','c-free'],['Covers Part B premium','~$185/mo','c-free'],['Covers Part A deductible','No','c-mid'],['Covers Medicare co-pays','No','c-mid'],['QI requirement','No other Medicaid','c-mid'],['Renewal','Annual','c-low']],
-       covers:['Part B premium (~$185/mo)','Reduces Medicare costs','Saves on monthly bill','No co-pay coverage','No deductible coverage','Annual renewal required'],
-       desc:'SLMB/QI pays only the Part B premium — less comprehensive than QMB. QI requires no other Medicaid coverage. NC custom calculator (same state-specific asset limits). Bug fixed in early 2026: QI must not have other Medicaid.',
-       navigator:'NC SHIIP',navDesc:'Free Medicare counseling: call 1-855-408-1212',
-       docs:['Medicare card (Part A and B)','NC ID','Social Security number','Bank statements','Proof of income']},
-      {name:'Family Planning Services',fl:null,elig:['Yourself'],tc:'t-ltd',tier:'→ Limited',
-       tVal:'15 min',pCost:'$0/month',pClass:'green',pSub:'Family planning visits & contraception only',annual:'Custom',
-       costs:[['Monthly premium','$0','c-free'],['Family planning visits','Covered','c-free'],['Contraception','Covered','c-free'],['Primary care','Not covered','c-mid'],['Hospital care','Not covered','c-mid'],['Co-pay','$0','c-free']],
-       covers:['Family planning visits','Contraception','Pregnancy testing','STI testing','Counseling','Related lab work'],
-       desc:'Limited Medicaid covering family planning visits and contraception only. Does not include primary care, hospital stays, or other medical services.',
-       navigator:'NC Medicaid',navDesc:'Apply at epass.nc.gov',
-       docs:['NC ID','Social Security number','Proof of income']},
-      {name:'Emergency Medicaid',fl:null,elig:['Yourself'],tc:'t-emg',tier:'⚡ Emergency Only',
-       tVal:'20 min',pCost:'$0/month',pClass:'green',pSub:'Emergency services only · non-citizens',annual:'Custom',
-       costs:[['Monthly premium','$0','c-free'],['Emergency care','Covered','c-free'],['Routine care','Not covered','c-mid'],['Preventive care','Not covered','c-mid'],['Co-pay — ER','$0–$3','c-low'],['Out-of-pocket max','Limited','c-mid']],
-       covers:['Emergency room','Emergency surgery','Stabilization','Emergency ambulance','Crisis mental health','Emergency dental'],
-       desc:'Emergency-only Medicaid for non-citizens in North Carolina. Does not show in Step 8.',
-       navigator:'NC ePASS',navDesc:'Apply at epass.nc.gov',
-       docs:['Photo ID','Proof of NC address','Immigration documentation']},
+      {name:'NC Medicaid (ACA Expansion Adults)',fl:'pe',pe:true,elig:['Yourself'],tc:'t-comp',tier:'★ Comprehensive',tVal:'45 min',cost:'$0/month',cv:'green-v',sub:'Dynamic PE value · NC expanded Medicaid 2023',annual:'PE-calculated',costs:[['Monthly premium','$0','mi-cv-free'],['Deductible','$0','mi-cv-free'],['Co-pay — primary','$1–$4','mi-cv-low'],['Co-pay — ER','$3–$8','mi-cv-low'],['Dental & vision','Included','mi-cv-free'],['Out-of-pocket max','$0','mi-cv-free']],covers:['Medical','Dental','Vision','Behavioral health','Prescriptions','Preventive care'],desc:'Free comprehensive Medicaid for NC adults. Expanded late 2023. Policy Engine calculates value dynamically for this household.',nav:'NC ePASS',navDesc:'Apply at epass.nc.gov',docs:['NC ID','Social Security number','Proof of income','Proof of NC residency']},
+      {name:'Medicare Savings Program — QMB',fl:null,pe:false,elig:['Yourself'],tc:'t-sup',tier:'✓ Supplemental',tVal:'30 min',cost:'$0/month',cv:'green-v',sub:'Pays Medicare Part B premium + all cost-sharing',annual:'~$2,220/yr',costs:[['Monthly premium','$0','mi-cv-free'],['Covers Part B (~$185/mo)','Yes','mi-cv-free'],['Part A deductible','Covered','mi-cv-free'],['Medicare co-pays','Covered','mi-cv-free'],['Asset limit (single)','$9,660','mi-cv-low'],['Asset limit (married)','$14,470','mi-cv-low']],covers:['Part B premium','Part A deductible','Medicare co-pays','Medicare deductibles','Hospital cost-sharing','Prescription cost help'],desc:'QMB pays all Medicare costs. NC uses state-specific asset limits. Custom calculator required — cannot use federal PE calculator directly.',nav:'NC SHIIP',navDesc:'Free Medicare counseling: 1-855-408-1212',docs:['Medicare card','NC ID','Social Security number','Bank statements','Proof of income']},
     ]}]
   },
   tx:{label:'TEXAS',count:18,mo:'$1,120',yr:'$7,800',
-    noteA:'<b>Proposal A · Texas</b> — TX already uses Policy Engine for all insurance programs — most consistent state. Note: CHIP shows a real cost ($5–$20/mo) not $0, because there\'s an income-based premium.',
-    noteB:'<b>Proposal B · Texas</b> — TX is the cleanest state. More Info is most valuable for Medicare Savings (supplemental structure explanation) and CHIP (premium tier details).',
+    note:'<b>Texas</b> · Non-expansion state — adult Medicaid severely restricted. Main insurance programs are for children and Medicare. TX already uses Policy Engine for all insurance programs — the most consistent state.',
     cats:[{icon:'🏥',name:'Health Care',total:'$420/month',progs:[
-      {name:'Medicaid for Children',fl:'pe',elig:['Child'],tc:'t-comp',tier:'⭐ Comprehensive',
-       tVal:'45 min',pCost:'$0/month',pClass:'green',pSub:'Dynamic PE value · full coverage for eligible children',annual:'PE-calculated',
-       costs:[['Monthly premium','$0','c-free'],['Annual deductible','$0','c-free'],['Co-pay — primary care','$1–$3','c-low'],['Co-pay — specialist','$0–$5','c-low'],['Co-pay — ER','$3–$8','c-low'],['Out-of-pocket max','$0','c-free']],
-       covers:['Medical care','Dental','Vision','Mental health','Prescriptions','Preventive care'],
-       desc:'Free comprehensive Medicaid for eligible Texas children. TX is a non-expansion state — adult Medicaid is severely restricted, but children\'s coverage is comprehensive. Validation failures fixed Feb 2026 (MFB-638).',
-       navigator:'Texas Health and Human Services',navDesc:'Apply at yourtexasbenefits.com or call 2-1-1',
-       docs:['Child\'s birth certificate','Social Security number','Proof of household income','TX ID or utility bill']},
-      {name:"CHIP (Children's Health Insurance)",fl:'pe',elig:['Child'],tc:'t-std',tier:'✓ Standard',
-       tVal:'30 min',pCost:'$5–$20/month',pClass:'yellow',pSub:'Income-based premium · capped at 5% of family income',annual:'PE-calculated',
-       costs:[['Monthly premium','$5–$20','c-mid'],['Annual deductible','$0','c-free'],['Co-pay — primary care','$5–$15','c-low'],['Co-pay — specialist','$10–$25','c-mid'],['Co-pay — ER','$25','c-mid'],['Out-of-pocket max','≤5% income','c-mid']],
-       covers:['Medical care','Dental','Vision','Mental health','Prescriptions','Preventive care'],
-       desc:'Low-cost comprehensive coverage for TX children. Policy Engine calculates premium dynamically. If your child qualifies for Medicaid for Children, that program has no premium — check eligibility there first.',
-       navigator:'Texas Health and Human Services',navDesc:'Apply at yourtexasbenefits.com or call 2-1-1',
-       docs:['Child\'s birth certificate','Social Security number','Proof of household income','TX address verification']},
-      {name:'Medicare Savings (QMB / SLMB / QI)',fl:'pe',elig:['Yourself'],tc:'t-sup',tier:'✓ Supplemental',
-       tVal:'30 min',pCost:'$0/month',pClass:'green',pSub:'Pays Medicare Part B premium + cost-sharing (QMB)',annual:'~$2,220/year',
-       costs:[['Monthly premium','$0','c-free'],['Covers Part B premium','~$185/mo','c-free'],['Covers Medicare costs','Yes (QMB)','c-free'],['Federal calculator','No TX variance','c-low'],['Asset limit','Federal standard','c-low'],['Renewal','Annual','c-low']],
-       covers:['Part B premium (~$185/mo)','Medicare cost-sharing','Hospital deductibles','Doctor visit co-pays','Annual renewal','Federal rules apply'],
-       desc:'Texas uses the standard federal Medicare Savings Program calculator — no state-specific rules. QMB pays all Medicare costs. SLMB/QI pay only Part B premium. Policy Engine driven.',
-       navigator:'Texas Health and Human Services',navDesc:'Apply at yourtexasbenefits.com or call 2-1-1',
-       docs:['Medicare card (Part A and B)','TX ID','Social Security number','Proof of income','Bank statements (asset test)']},
-      {name:'Emergency Medicaid (Non-Citizens)',fl:null,elig:['Yourself'],tc:'t-emg',tier:'⚡ Emergency Only',
-       tVal:'20 min',pCost:'$0/month',pClass:'green',pSub:'Emergency services only',annual:'Custom',
-       costs:[['Monthly premium','$0','c-free'],['Emergency care','Covered','c-free'],['Routine care','Not covered','c-mid'],['Preventive care','Not covered','c-mid'],['Co-pay — ER','$0–$3','c-low'],['Out-of-pocket max','Limited','c-mid']],
-       covers:['Emergency room','Emergency surgery','Stabilization','Emergency ambulance','Crisis mental health','Emergency dental'],
-       desc:'Emergency-only Medicaid for non-citizens in Texas. Custom calculator (MFB-321). Does not show in Step 8.',
-       navigator:'Texas Health and Human Services',navDesc:'Apply at yourtexasbenefits.com',
-       docs:['Photo ID','Proof of TX address','Immigration documentation']},
+      {name:'Medicaid for Children',fl:'pe',pe:true,elig:['Child'],tc:'t-comp',tier:'★ Comprehensive',tVal:'45 min',cost:'$0/month',cv:'green-v',sub:'Dynamic PE value · full coverage for eligible children',annual:'PE-calculated',costs:[['Monthly premium','$0','mi-cv-free'],['Deductible','$0','mi-cv-free'],['Co-pay — primary','$1–$3','mi-cv-low'],['Co-pay — ER','$3–$8','mi-cv-low'],['Dental & vision','Included','mi-cv-free'],['Out-of-pocket max','$0','mi-cv-free']],covers:['Medical','Dental','Vision','Mental health','Prescriptions','Preventive care'],desc:'Free comprehensive Medicaid for TX children. Validation failures fixed Feb 2026 (MFB-638). Policy Engine driven.',nav:'Texas Health and Human Services',navDesc:'Apply at yourtexasbenefits.com or call 2-1-1',docs:["Child's birth certificate",'Social Security number','Proof of household income','TX ID or utility bill']},
+      {name:"CHIP (Children's Health Insurance)",fl:'pe',pe:true,elig:['Child'],tc:'t-std',tier:'✓ Standard',tVal:'30 min',cost:'$5–$20/month',cv:'yellow-v',sub:'Income-based premium · capped at 5% of family income',annual:'PE-calculated',costs:[['Monthly premium','$5–$20','mi-cv-mid'],['Deductible','$0','mi-cv-free'],['Co-pay — primary','$5–$15','mi-cv-low'],['Co-pay — ER','$25','mi-cv-mid'],['Out-of-pocket max','≤5% income','mi-cv-mid'],['Dental & vision','Included','mi-cv-low']],covers:['Medical','Dental','Vision','Mental health','Prescriptions','Preventive care'],desc:'Low-cost coverage for TX children. Policy Engine calculates premium dynamically. If child qualifies for Medicaid for Children, that program has no premium.',nav:'Texas Health and Human Services',navDesc:'Apply at yourtexasbenefits.com or call 2-1-1',docs:["Child's birth certificate",'Social Security number','Proof of household income','TX address verification']},
+      {name:'Medicare Savings (QMB / SLMB / QI)',fl:'pe',pe:true,elig:['Yourself'],tc:'t-sup',tier:'✓ Supplemental',tVal:'30 min',cost:'$0/month',cv:'green-v',sub:'Pays Medicare Part B premium + cost-sharing (QMB)',annual:'~$2,220/yr',costs:[['Monthly premium','$0','mi-cv-free'],['Covers Part B (~$185/mo)','Yes','mi-cv-free'],['Medicare costs (QMB)','Covered','mi-cv-free'],['Federal calculator','No TX variance','mi-cv-low'],['Asset limit','Federal standard','mi-cv-low'],['Renewal','Annual','mi-cv-low']],covers:['Part B premium','Medicare cost-sharing','Hospital deductibles','Doctor co-pays','Annual renewal','Federal rules'],desc:'Federal PE calculator — no TX-specific rules. QMB covers all Medicare costs. SLMB/QI cover Part B premium only.',nav:'Texas Health and Human Services',navDesc:'Apply at yourtexasbenefits.com',docs:['Medicare card','TX ID','Social Security number','Proof of income','Bank statements']},
     ]}]
   },
   wa:{label:'WASHINGTON',count:14,mo:'TBD',yr:'TBD',
-    noteA:'<b>Proposal A · Washington</b> — ✅ Status update (June 1, 2026): Apple Health Federal (MFB-788) and Apple Health for Kids (MFB-789) both shipped and are now LIVE. HWD (MFB-790) moved back to Backlog. Values TBD pending PE SLCSP calculation.',
-    noteB:'<b>Proposal B · Washington</b> — Apple Health just launched. More Info is especially important for WA — users may not know "Apple Health" is Washington\'s name for Medicaid. The detail page can explain this clearly.',
+    note:'<b>Washington</b> · Apple Health (Federal) and Apple Health for Kids <b>shipped June 1, 2026</b> (MFB-788 ✓ Done, MFB-789 ✓ Done). Values TBD pending PE SLCSP calculation. HWD (MFB-790) moved back to Backlog.',
     cats:[{icon:'🏥',name:'Health Care',total:'Programs live — values pending',progs:[
-      {name:'Apple Health (Medicaid — Federal)',fl:'done',elig:['Yourself'],tc:'t-comp',tier:'⭐ Comprehensive',
-       tVal:'45 min',pCost:'$0/month',pClass:'green',pSub:'Value TBD · program live June 1 (MFB-788 ✓ Done)',annual:'TBD',
-       costs:[['Monthly premium','$0','c-free'],['Annual deductible','$0','c-free'],['Co-pay — primary care','$1–$4','c-low'],['Co-pay — specialist','$0–$8','c-low'],['Co-pay — ER','$3–$8','c-low'],['Out-of-pocket max','$0','c-free']],
-       covers:['Medical care','Dental','Vision','Behavioral health','Prescriptions','Long-term care'],
-       desc:'Washington\'s Medicaid program, called Apple Health. Free comprehensive coverage for eligible adults earning up to 138% FPL. Shipped June 1, 2026 (MFB-788, assigned David). Recommend PE SLCSP for dynamic value.',
-       navigator:'Washington Healthplanfinder',navDesc:'Apply at wahealthplanfinder.org or call 1-855-923-4633',
-       docs:['WA ID or driver\'s license','Social Security number','Proof of income','Proof of WA residency']},
-      {name:'Apple Health for Kids',fl:'done',elig:['Child'],tc:'t-comp',tier:'⭐ Comprehensive',
-       tVal:'45 min',pCost:'$0/month',pClass:'green',pSub:'Value TBD · program live June 1 (MFB-789 ✓ Done)',annual:'TBD',
-       costs:[['Monthly premium','$0','c-free'],['Annual deductible','$0','c-free'],['Co-pay — primary care','$1–$3','c-low'],['Co-pay — specialist','$0–$5','c-low'],['Co-pay — ER','$3–$8','c-low'],['Out-of-pocket max','$0','c-free']],
-       covers:['Medical care','Dental','Vision','Mental health','Prescriptions','Preventive care'],
-       desc:'Apple Health for Kids provides comprehensive Medicaid coverage for Washington children. WA-specific income limits (different from adult federal pathway). Shipped June 1, 2026 (MFB-789, assigned David).',
-       navigator:'Washington Healthplanfinder',navDesc:'Apply at wahealthplanfinder.org',
-       docs:['Child\'s birth certificate','Proof of WA residency','Social Security number','Proof of household income']},
+      {name:'Apple Health (Medicaid — Federal)',fl:'live',pe:false,elig:['Yourself'],tc:'t-comp',tier:'★ Comprehensive',tVal:'45 min',cost:'$0/month',cv:'green-v',sub:'Live as of June 1 (MFB-788) · value TBD',annual:'TBD',costs:[['Monthly premium','$0','mi-cv-free'],['Deductible','$0','mi-cv-free'],['Co-pay — primary','$1–$4','mi-cv-low'],['Co-pay — ER','$3–$8','mi-cv-low'],['Dental & vision','Included','mi-cv-free'],['Out-of-pocket max','$0','mi-cv-free']],covers:["Medical","Dental","Vision","Behavioral health","Prescriptions","Long-term care"],desc:"Washington's Medicaid program. Free comprehensive coverage up to 138% FPL. Shipped June 1, 2026 (MFB-788). Recommend PE SLCSP for dynamic value calculation.",nav:'Washington Healthplanfinder',navDesc:'Apply at wahealthplanfinder.org or call 1-855-923-4633',docs:['WA ID','Social Security number','Proof of income','Proof of WA residency']},
+      {name:'Apple Health for Kids',fl:'live',pe:false,elig:['Child'],tc:'t-comp',tier:'★ Comprehensive',tVal:'45 min',cost:'$0/month',cv:'green-v',sub:'Live as of June 1 (MFB-789) · value TBD',annual:'TBD',costs:[['Monthly premium','$0','mi-cv-free'],['Deductible','$0','mi-cv-free'],['Co-pay — primary','$1–$3','mi-cv-low'],['Co-pay — ER','$3–$8','mi-cv-low'],['Dental & vision','Included','mi-cv-free'],['Out-of-pocket max','$0','mi-cv-free']],covers:['Medical','Dental','Vision','Mental health','Prescriptions','Preventive care'],desc:"Comprehensive Medicaid for WA children. WA-specific income limits (different from adult federal pathway). Shipped June 1, 2026 (MFB-789).",nav:'Washington Healthplanfinder',navDesc:'Apply at wahealthplanfinder.org',docs:["Child's birth certificate",'Proof of WA residency','Social Security number','Proof of household income']},
     ]}]
   },
   ks:{label:'KANSAS',count:0,mo:'TBD',yr:'TBD',
-    noteA:'<b>Proposal A · Kansas</b> — All programs in discovery. Non-expansion state — childless adults generally ineligible for KanCare. Values TBD but cost structures known from policy research.',
-    noteB:'<b>Proposal B · Kansas</b> — Even in discovery, More Info page content (what\'s covered, key documents) can be researched and entered now, giving the team a head start for launch.',
+    note:'<b>Kansas</b> · Non-expansion state · All programs in discovery. Childless adults generally ineligible for KanCare. Values TBD — programs not yet built.',
     cats:[{icon:'🏥',name:'Health Care',total:'TBD — in discovery',progs:[
-      {name:'KanCare (Medicaid)',fl:'disc',elig:['Adults — restricted'],tc:'t-comp',tier:'⭐ Comprehensive',
-       tVal:'Due 07-13',pCost:'$0/month',pClass:'green',pSub:'Non-expansion · parents, pregnant, aged, disabled only',annual:'TBD',
-       costs:[['Monthly premium','$0','c-free'],['Annual deductible','$0','c-free'],['Co-pay — primary care','$1–$4','c-low'],['Co-pay — specialist','$0–$8','c-low'],['Co-pay — ER','$3–$8','c-low'],['Out-of-pocket max','$0','c-free']],
-       covers:['Medical care','Dental','Vision','Behavioral health','Prescriptions','Long-term care'],
-       desc:'Kansas Medicaid through KanCare. Non-expansion state — eligibility limited to parents, pregnant individuals, elderly, and people with disabilities. Childless adults ineligible regardless of income.',
-       navigator:'Kansas DCF',navDesc:'Apply at dcf.ks.gov or call 1-888-369-4777',
-       docs:['Kansas ID','Social Security number','Proof of income','Proof of residency','Disability documentation (if applicable)']},
-      {name:'Kansas CHIP',fl:'disc',elig:['Child'],tc:'t-std',tier:'✓ Standard',
-       tVal:'Due 07-13',pCost:'$0–$30/month',pClass:'yellow',pSub:'ks_chip_premium PE variable · capped at 5% of income',annual:'TBD',
-       costs:[['Monthly premium','$0–$30','c-mid'],['Annual deductible','$0','c-free'],['Co-pay — primary care','$5–$15','c-low'],['Co-pay — specialist','$10–$20','c-mid'],['Co-pay — ER','$25','c-mid'],['Out-of-pocket max','≤5% income','c-mid']],
-       covers:['Medical care','Dental (limited)','Vision (limited)','Mental health','Prescriptions','Preventive care'],
-       desc:'Low-cost health coverage for Kansas children. Income-based premium using ks_chip_premium Policy Engine variable. Federal law caps total family CHIP costs at 5% of annual income.',
-       navigator:'Kansas DCF',navDesc:'Apply at dcf.ks.gov or call 1-888-369-4777',
-       docs:['Child\'s birth certificate','Social Security number','Proof of household income','Kansas address verification']},
-      {name:'Working Healthy (Medicaid Buy-In)',fl:'disc',elig:['Yourself w/ disability'],tc:'t-comp',tier:'⭐ Comprehensive',
-       tVal:'Due 07-13',pCost:'Income-tested',pClass:'yellow',pSub:'Custom KS calculator · based on IL HBWD pattern',annual:'TBD',
-       costs:[['Monthly premium','Income-tested','c-mid'],['Annual deductible','$0','c-free'],['Co-pay — primary care','$1–$4','c-low'],['Co-pay — ER','$3–$8','c-low'],['Coverage scope','Full Medicaid','c-free'],['Out-of-pocket max','$0','c-free']],
-       covers:['Medical care','Dental','Vision','Behavioral health','Prescriptions','Long-term care'],
-       desc:'Full KanCare coverage for working Kansans with disabilities. Income-tested monthly premium. Custom KS calculator based on IL HBWD + CO awd_medicaid patterns.',
-       navigator:'Kansas DCF',navDesc:'Apply at dcf.ks.gov',
-       docs:['Proof of disability (SSA determination)','Proof of employment/earned income','Social Security number','Kansas ID']},
-      {name:'Medicare Savings (QMB / SLMB / QI)',fl:'disc',elig:['Medicare enrollees'],tc:'t-sup',tier:'✓ Supplemental',
-       tVal:'Due 06-29',pCost:'$0/month',pClass:'green',pSub:'Federal PE calculator · no KS variance expected',annual:'~$2,220/year',
-       costs:[['Monthly premium','$0','c-free'],['Covers Part B premium','~$185/mo','c-free'],['Covers Medicare costs','Yes (QMB)','c-free'],['Federal calculator','No KS variance','c-low'],['Asset limit','Federal standard','c-low'],['Renewal','Annual','c-low']],
-       covers:['Part B premium (~$185/mo)','Medicare cost-sharing','Hospital deductibles','Doctor visit co-pays','Annual renewal','Federal rules apply'],
-       desc:'Helps low-income Kansas Medicare beneficiaries pay for Medicare costs. Federal PE calculator — no KS-specific rules expected. Due for discovery by June 29.',
-       navigator:'Kansas DCF',navDesc:'Apply at dcf.ks.gov',
-       docs:['Medicare card (Part A and B)','Kansas ID','Social Security number','Proof of income','Bank statements']},
-      {name:'KanCare HCBS Waivers',fl:'disc',elig:['Home & community care'],tc:'t-ltd',tier:'→ Limited',
-       tVal:'Due 06-29',pCost:'Varies',pClass:'yellow',pSub:'Highly specialized · no PE or MFB precedent',annual:'TBD',
-       costs:[['Monthly premium','Varies','c-mid'],['Scope','Home & community care','c-mid'],['Medical coverage','Limited','c-mid'],['Personal care','Included','c-low'],['Asset test','Applies','c-mid'],['Out-of-pocket max','Varies','c-mid']],
-       covers:['Personal care','Home health aides','Adult day services','Respite care','Community supports','Some medical care'],
-       desc:'Home and Community-Based Services waivers through KanCare. Highly specialized — no existing Policy Engine or MFB precedent. Due for discovery by June 29.',
-       navigator:'Kansas DCF',navDesc:'Apply at dcf.ks.gov or call 1-888-369-4777',
-       docs:['Kansas ID','Social Security number','Medical documentation','Proof of need for home/community services']},
+      {name:'KanCare (Medicaid)',fl:'disc',pe:false,elig:['Adults — restricted'],tc:'t-comp',tier:'★ Comprehensive',tVal:'Due 07-13',cost:'$0/month',cv:'green-v',sub:'Non-expansion · parents, pregnant, aged, disabled only',annual:'TBD',costs:[['Monthly premium','$0','mi-cv-free'],['Deductible','$0','mi-cv-free'],['Co-pay — primary','$1–$4','mi-cv-low'],['Co-pay — ER','$3–$8','mi-cv-low'],['Dental & vision','Included','mi-cv-free'],['Out-of-pocket max','$0','mi-cv-free']],covers:['Medical','Dental','Vision','Behavioral health','Prescriptions','Long-term care'],desc:'Kansas Medicaid through KanCare. Non-expansion state — limited to parents, pregnant, elderly, and people with disabilities.',nav:'Kansas DCF',navDesc:'Apply at dcf.ks.gov or call 1-888-369-4777',docs:['Kansas ID','Social Security number','Proof of income','Proof of residency']},
+      {name:'Kansas CHIP',fl:'disc',pe:false,elig:['Child'],tc:'t-std',tier:'✓ Standard',tVal:'Due 07-13',cost:'$0–$30/month',cv:'yellow-v',sub:'ks_chip_premium PE variable · capped at 5% of income',annual:'TBD',costs:[['Monthly premium','$0–$30','mi-cv-mid'],['Deductible','$0','mi-cv-free'],['Co-pay — primary','$5–$15','mi-cv-low'],['Co-pay — ER','$25','mi-cv-mid'],['Out-of-pocket max','≤5% income','mi-cv-mid'],['Dental & vision','Limited','mi-cv-low']],covers:['Medical','Dental (limited)','Vision (limited)','Mental health','Prescriptions','Preventive care'],desc:'Low-cost coverage for KS children. ks_chip_premium PE variable. Premium capped at 5% of family income.',nav:'Kansas DCF',navDesc:'Apply at dcf.ks.gov or call 1-888-369-4777',docs:["Child's birth certificate",'Social Security number','Proof of household income','Kansas address verification']},
+      {name:'Working Healthy (Medicaid Buy-In)',fl:'disc',pe:false,elig:['Yourself w/ disability'],tc:'t-comp',tier:'★ Comprehensive',tVal:'Due 07-13',cost:'Income-tested',cv:'yellow-v',sub:'Custom KS calculator · based on IL HBWD pattern',annual:'TBD',costs:[['Monthly premium','Income-tested','mi-cv-mid'],['Deductible','$0','mi-cv-free'],['Co-pay — primary','$1–$4','mi-cv-low'],['Co-pay — ER','$3–$8','mi-cv-low'],['Coverage','Full Medicaid','mi-cv-free'],['Out-of-pocket max','$0','mi-cv-free']],covers:['Medical','Dental','Vision','Behavioral health','Prescriptions','Long-term care'],desc:'Full KanCare for working Kansans with disabilities. Income-tested premium. Custom KS calculator based on IL HBWD + CO awd_medicaid.',nav:'Kansas DCF',navDesc:'Apply at dcf.ks.gov',docs:['Proof of disability (SSA)','Proof of earned income','Social Security number','Kansas ID']},
+      {name:'Medicare Savings (QMB / SLMB / QI)',fl:'disc',pe:false,elig:['Medicare enrollees'],tc:'t-sup',tier:'✓ Supplemental',tVal:'Due 06-29',cost:'$0/month',cv:'green-v',sub:'Federal PE calculator · no KS variance expected',annual:'~$2,220/yr',costs:[['Monthly premium','$0','mi-cv-free'],['Covers Part B (~$185/mo)','Yes','mi-cv-free'],['Medicare costs (QMB)','Covered','mi-cv-free'],['Federal calculator','No KS variance','mi-cv-low'],['Asset limit','Federal standard','mi-cv-low'],['Renewal','Annual','mi-cv-low']],covers:['Part B premium','Medicare cost-sharing','Hospital deductibles','Doctor co-pays','Annual renewal','Federal rules'],desc:'Standard federal Medicare Savings Program — no KS-specific rules expected. Due for discovery by June 29.',nav:'Kansas DCF',navDesc:'Apply at dcf.ks.gov',docs:['Medicare card','Kansas ID','Social Security number','Proof of income','Bank statements']},
     ]}]
   }
 };
 
-function go(code,btn){
-  state=code;
+function goState(code,btn){
+  st=code;
   document.querySelectorAll('.s-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  render();
-  document.getElementById('wrap').scrollTop=0;
+  renderResults();
+  document.getElementById('view-results').querySelector('.screen').scrollTop=0;
 }
-function setProp(p){
-  prop=p;
-  document.getElementById('btn-a').className='p-btn'+(p==='a'?' active':'');
-  document.getElementById('btn-b').className='p-btn'+(p==='b'?' active':'');
-  render();
+
+function goView(v){
+  document.getElementById('vbtn-results').className='v-btn'+(v==='results'?' active':'');
+  document.getElementById('vbtn-gaps').className='v-btn'+(v==='gaps'?' active':'');
+  document.getElementById('view-results').style.display=v==='results'?'block':'none';
+  document.getElementById('view-gaps').style.display=v==='gaps'?'block':'none';
 }
+
+function renderResults(){
+  var d=STATES[st];
+  document.getElementById('st-lbl').textContent=d.label;
+  document.getElementById('cnt').textContent=d.count||'—';
+  document.getElementById('mo-v').textContent=d.mo;
+  document.getElementById('yr-v').textContent=d.yr;
+  document.getElementById('tab-lbl').textContent='LONG-TERM BENEFITS ('+(d.count||'—')+')';
+  document.getElementById('state-note').innerHTML=d.note;
+  var html='';
+  d.cats.forEach((cat,ci)=>{
+    html+=`<div class="cat-hd"><span class="cat-icon">${cat.icon}</span><span class="cat-name">${cat.name}</span></div><div class="cat-total">${cat.total}</div>`;
+    cat.progs.forEach((p,pi)=>{
+      var fl='';
+      if(p.fl==='live') fl='<div class="fl fl-live">LIVE</div>';
+      if(p.fl==='disc') fl='<div class="fl fl-disc">DISCOVERY</div>';
+      if(p.fl==='pe')   fl='<div class="fl fl-pe">POLICY ENGINE ✓</div>';
+      var elig=(p.elig||[]).map(e=>`<span class="elig-t">${e}</span>`).join('');
+      html+=`<div class="card">${fl}
+        <div class="card-head">
+          <div class="card-name">${p.name}</div>
+          <div class="tier ${p.tc}">${p.tier}</div>
+          <div class="elig-row"><span class="elig-l">Eligible:</span>${elig}</div>
+        </div>
+        <button class="more-btn" onclick="openModal(${ci},${pi})">More Info</button>
+        <hr class="card-div">
+        <div class="val-row">
+          <div><div class="vl">Application Time</div><div class="vm">${p.tVal}</div></div>
+          <div><div class="vl">Your monthly cost</div><div class="vm ${p.cv}">${p.cost}</div><div class="vs">${p.sub}</div></div>
+        </div>
+      </div>`;
+    });
+  });
+  document.getElementById('progs').innerHTML=html;
+}
+
 function openModal(ci,pi){
-  var d=DATA[state], cat=d.cats[ci], p=cat.progs[pi];
+  var d=STATES[st], cat=d.cats[ci], p=cat.progs[pi];
   document.getElementById('mi-icon').textContent=cat.icon;
   document.getElementById('mi-cat').textContent=cat.name;
   document.getElementById('mi-name').textContent=p.name;
   var t=document.getElementById('mi-tier'); t.className='tier '+p.tc; t.textContent=p.tier;
   document.getElementById('mi-annual').textContent=p.annual;
   document.getElementById('mi-time').textContent=p.tVal;
-  var costRows=(p.costs||[]).map(c=>`<div class="mi-ci"><span class="mi-ck">${c[0]}</span><span class="mi-cv ${c[2]}">${c[1]}</span></div>`).join('');
-  var covItems=(p.covers||[]).map(c=>`<div class="mi-cov-item"><span>✓</span> ${c}</div>`).join('');
-  var docItems=(p.docs||[]).map(d=>`<li>${d}</li>`).join('');
+  var costs=(p.costs||[]).map(c=>`<div class="mi-ci"><span class="mi-ck">${c[0]}</span><span class="${c[2]}">${c[1]}</span></div>`).join('');
+  var covers=(p.covers||[]).map(c=>`<div class="mi-cov-item"><span>✓</span> ${c}</div>`).join('');
+  var docs=(p.docs||[]).map(d=>`<li>${d}</li>`).join('');
   document.getElementById('mi-body').innerHTML=
-    `<div class="mi-cost-section"><div class="mi-cost-title">💰 What you'd pay</div><div class="mi-cost-grid">${costRows}</div><div class="mi-covers"><div class="mi-covers-title">What's covered</div><div class="mi-cov-grid">${covItems}</div></div></div>
-     <div class="mi-section"><div class="mi-section-title">Get Help Applying</div><p class="mi-nav-name">${p.navigator||''}</p><p class="mi-nav-desc">${p.navDesc||''}</p></div>
-     <div class="mi-docs-section"><div class="mi-docs-title">Key Information You May Need to Provide:</div><ul class="mi-docs-list">${docItems}</ul></div>
+    `<div class="mi-cost"><div class="mi-cost-title">💰 What you'd pay</div><div class="mi-cost-grid">${costs}</div><div class="mi-covers"><div class="mi-cov-title">What's covered</div><div class="mi-cov-grid">${covers}</div></div></div>
+     <div class="mi-section"><div class="mi-sec-title">Get Help Applying</div><p class="mi-nav-name">${p.nav||''}</p><p class="mi-nav-desc">${p.navDesc||''}</p></div>
+     <div class="mi-docs"><div class="mi-docs-title">Key Information You May Need to Provide:</div><ul class="mi-docs-list">${docs}</ul></div>
      <div class="mi-desc">${p.desc||''}</div>`;
   document.getElementById('modal').classList.add('open');
 }
 function closeModal(){document.getElementById('modal').classList.remove('open');}
-function render(){
-  var d=DATA[state];
-  document.getElementById('st-lbl').textContent=d.label;
-  document.getElementById('cnt').textContent=d.count||'—';
-  document.getElementById('mo-val').textContent=d.mo;
-  document.getElementById('yr-val').textContent=d.yr;
-  document.getElementById('tab-lbl').textContent='LONG-TERM BENEFITS ('+(d.count||'—')+')';
-  var ne=document.getElementById('note-el');
-  ne.className='note '+(prop==='a'?'note-a':'note-b');
-  ne.innerHTML=prop==='a'?d.noteA:d.noteB;
-  var html='';
-  d.cats.forEach((cat,ci)=>{
-    html+=`<div class="cat-hd"><span class="cat-icon">${cat.icon}</span><span class="cat-name">${cat.name}</span></div><div class="cat-total">${cat.total}</div>`;
-    cat.progs.forEach((p,pi)=>{
-      var fl='';
-      if(p.fl==='done') fl='<div class="fl fl-done">LIVE</div>';
-      if(p.fl==='disc') fl='<div class="fl fl-disc">DISCOVERY</div>';
-      if(p.fl==='pe')   fl='<div class="fl fl-pe">POLICY ENGINE ✓</div>';
-      var eligHtml=(p.elig||[]).map(e=>`<span class="elig-t">${e}</span>`).join('');
-      var costSection='';
-      if(prop==='a'){
-        var rows=(p.costs||[]).map(c=>`<div class="ci"><span class="ck">${c[0]}</span><span class="cv ${c[2]}">${c[1]}</span></div>`).join('');
-        costSection=`<div class="cost-section"><div class="cost-title">💰 What you'd pay</div><div class="cost-grid">${rows}</div></div>`;
-      }
-      var moreBtn=prop==='b'
-        ?`<button class="more-btn" onclick="openModal(${ci},${pi})">More Info</button>`
-        :`<button class="more-btn">More Info</button>`;
-      html+=`<div class="card">${fl}<div class="card-head"><div class="card-name">${p.name}</div><div class="tier ${p.tc}">${p.tier}</div><div class="elig-row"><span class="elig-l">Eligible:</span>${eligHtml}</div></div>${moreBtn}<hr class="card-div"><div class="val-row"><div><div class="vl">Application Time</div><div class="vm">${p.tVal}</div></div><div><div class="vl">Your monthly cost</div><div class="vm ${p.pClass}">${p.pCost}</div><div class="vs">${p.pSub}</div></div></div>${costSection}</div>`;
-    });
-  });
-  document.getElementById('progs').innerHTML=html;
+
+function showGap(id,btn){
+  document.querySelectorAll('.gap-page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.g-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('gp-'+id).classList.add('active');
+  btn.classList.add('active');
 }
-render();
+
+function setG1(mode){
+  var isP=mode==='prop';
+  document.getElementById('g1cur').className='vt-opt'+(isP?'':' on');
+  document.getElementById('g1prop').className='vt-opt'+(isP?' on':'');
+  var card=document.getElementById('g1-card');
+  card.style.borderColor=isP?'var(--green)':'var(--green)';
+  document.getElementById('g1-tier').style.display=isP?'inline-flex':'none';
+  document.getElementById('g1-vl').textContent=isP?'Your monthly cost:':'Estimated Savings:';
+  var vm=document.getElementById('g1-vm');
+  vm.textContent=isP?'$0/month':'$310/month';
+  vm.className='vm'+(isP?' green-v':'');
+  document.getElementById('g1-vs').style.display=isP?'block':'none';
+  document.getElementById('g1-costs').style.display=isP?'block':'none';
+}
+
+function pickTile(el,type){
+  document.querySelectorAll('#gp-g2 .tile-grid .ins-tile').forEach(t=>t.classList.remove('sel'));
+  el.classList.add('sel');
+  var show=(type==='employer'||type==='private');
+  document.getElementById('prem-wrap').style.display=show?'block':'none';
+  if(show) document.getElementById('prem-q').textContent='How much do you pay each month for your '+(type==='employer'?'employer coverage':'private insurance')+'?';
+  if(!show) document.getElementById('sav-prev').style.display='none';
+}
+
+function calcNet(val){
+  var n=parseFloat(val)||0, net=Math.max(0,310-n);
+  document.getElementById('net-val').textContent='$'+net+'/month';
+  document.getElementById('cur-prem').textContent=n;
+  document.getElementById('sav-prev').style.display=n>0?'block':'none';
+}
+
+renderResults();
 </script>
 </body>
 </html>
