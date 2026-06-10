@@ -265,6 +265,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div><div class="stat-l">Estimated Monthly Savings</div><div class="stat-v" id="mo-v">—</div><div class="stat-l" style="margin-top:3px;">Annual Tax Credit</div><div class="stat-v" id="yr-v">—</div></div>
   </div>
   <div class="tabs"><div class="tab active" id="tab-lbl">LONG-TERM BENEFITS</div><div class="tab">ADDITIONAL RESOURCES (0)</div></div>
+  <div class="view-tog" style="background:#fff;border-bottom:1px solid #eee;padding:7px 18px;display:flex;align-items:center;gap:8px;">
+    <span style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;">Proposal</span>
+    <div class="vt-pill">
+      <button class="vt-opt" id="btn-pa" onclick="setProposal('a')">A — Costs on card</button>
+      <button class="vt-opt on" id="btn-pb" onclick="setProposal('b')">B — Costs on More Info</button>
+    </div>
+    <span style="font-size:10px;color:var(--muted);margin-left:4px;" id="prop-hint">Coverage tier + cost breakdown on More Info page</span>
+  </div>
   <div class="state-note" id="state-note"></div>
   <div class="programs" id="progs"></div>
 </div>
@@ -420,7 +428,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </div>
 
 <script>
-var st='co';
+var st='co', proposal='b';
 
 var STATES={
   co:{label:'COLORADO',count:19,mo:'$1,786',yr:'$11,972',
@@ -489,6 +497,16 @@ function goState(code,btn){
   document.getElementById('view-results').querySelector('.screen').scrollTop=0;
 }
 
+function setProposal(p){
+  proposal=p;
+  document.getElementById('btn-pa').className='vt-opt'+(p==='a'?' on':'');
+  document.getElementById('btn-pb').className='vt-opt'+(p==='b'?' on':'');
+  document.getElementById('prop-hint').textContent=p==='a'
+    ?'Coverage tier + cost breakdown visible on results card'
+    :'Coverage tier + cost breakdown on More Info page';
+  renderResults();
+}
+
 function goView(v){
   document.getElementById('vbtn-results').className='v-btn'+(v==='results'?' active':'');
   document.getElementById('vbtn-gaps').className='v-btn'+(v==='gaps'?' active':'');
@@ -513,6 +531,11 @@ function renderResults(){
       if(p.fl==='disc') fl='<div class="fl fl-disc">DISCOVERY</div>';
       if(p.fl==='pe')   fl='<div class="fl fl-pe">POLICY ENGINE ✓</div>';
       var elig=(p.elig||[]).map(e=>`<span class="elig-t">${e}</span>`).join('');
+      var costGrid='';
+      if(proposal==='a'){
+        var rows=(p.costs||[]).map(c=>`<div class="mi-ci"><span class="mi-ck">${c[0]}</span><span class="${c[2]}">${c[1]}</span></div>`).join('');
+        costGrid=`<div style="background:var(--green-l);border-top:1px solid #86efac;padding:8px 13px;"><div style="font-size:10px;font-weight:700;color:var(--green-d);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;">💰 What you'd pay</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 8px;">${rows}</div></div>`;
+      }
       html+=`<div class="card">${fl}
         <div class="card-head">
           <div class="card-name">${p.name}</div>
@@ -525,6 +548,7 @@ function renderResults(){
           <div><div class="vl">Application Time</div><div class="vm">${p.tVal}</div></div>
           <div><div class="vl">Your monthly cost</div><div class="vm ${p.cv}">${p.cost}</div><div class="vs">${p.sub}</div></div>
         </div>
+        ${costGrid}
       </div>`;
     });
   });
